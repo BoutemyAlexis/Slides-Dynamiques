@@ -381,3 +381,10 @@ html {
 #panelUsers {
  cursor: pointer;
 }
+
+#notification_personalChat {
+    color: #FFA500;
+    font-size: 10px;
+    margin-left: 25px;
+    position: absolute;
+}

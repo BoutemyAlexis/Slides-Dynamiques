@@ -164,6 +164,10 @@ $(document).ready(function () {
          
         messages_history[obj.emetteur] = "<p class='destinataire'>" + obj.contenu + "</p>";
         
+        if(document.getElementById('cadre-menu-droite').style.display == 'none') {
+            document.getElementById('notification_personalChat').innerHTML = 'Nouveau message';
+        }
+        
         for (var i=0; i <tab_windows_opened.length; i++) {
             if (tab_windows_opened[i] === obj.emetteur) {
                 return;
