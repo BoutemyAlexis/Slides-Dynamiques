@@ -204,8 +204,14 @@ socket.on('connection', function (client) {
 	});
 	
 	client.on('activeSlide_request', function() {
-		client.emit('updateSlide', currentPresentation, currentSlideId);
+        console.log('server received activeSlide_request');
+        sendMessage(rootSocketId, 'activeSlide_request');
 	});
+
+    client.on('activeSlide', function(activeSlideId) {
+        console.log('server received activeSlide: ' + activeSlideId);
+        socket.sockets.socket(newClientSocketId).emit('activeSlide', activeSlideId);
+    });
 	
 	client.on('videoStates', function(data) {
 		console.log('videoStates server: ' + data);

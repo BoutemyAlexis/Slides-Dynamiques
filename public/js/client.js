@@ -153,6 +153,12 @@ $(document).ready(function () {
         }
     });
 
+    socket.on('activeSlide_request', function() {
+        if (typeof slideControlContainer !== 'undefined') {
+            socket.emit('activeSlide', slideControlContainer.currentIndex);
+        }
+    });
+
     socket.on('videoStates', function(data) {
         videos = JSON.parse(data).videosStates;
         videosStates(videos);
@@ -465,6 +471,7 @@ function setIFrameEvents() {
     if (master == 'true') {
         $($('#notre_frame').contents()).find('#slideshow div, a.linkitem, li.elsommaire, li.elsommaire2, span.spanli, #liste_sections').click( function(event) {
         event.stopPropagation();
+
             if (event.target.nodeName !== "VIDEO") {
                 console.log("click on: " + getSelector($(this)));
                 socket.emit('click', getSelector($(this)));
@@ -475,6 +482,7 @@ function setIFrameEvents() {
         initVideo();
         if (master == 'false') {
             socket.emit('videoStates_request');
+            socket.emit('activeSlide_request');
         }
     }
 }
