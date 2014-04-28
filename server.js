@@ -27,6 +27,7 @@ var nbUsers = 0,
     currentSlideId,
     videosStates,
     rootSocketId = "",
+    tab_masters_sockets = [];
     currentPresentation = "",
     clientTokens = [],
     users = [],             // contains all connected clients
@@ -148,6 +149,7 @@ socket.on('connection', function (client) {
 		if (user.identifiant === 'root') {
 			rootSocketId = client.id;
             masters.push(user.identifiant);
+            tab_masters_sockets.push(client.id);
         }
 
 		users.push(user.identifiant);
@@ -198,14 +200,15 @@ socket.on('connection', function (client) {
 	});
 	
 	client.on('videoStates_request', function() {
-		sendMessage(rootSocketId, 'videoStates_request');
+		sendMessage(tab_masters_sockets[0], 'videoStates_request');
 		console.log('root: ' + rootSocketId);
-		console.log('****Server requested videos states to root');
+		console.log('Server requested videos states to root');
 	});
 	
 	client.on('activeSlide_request', function() {
         console.log('server received activeSlide_request');
-        sendMessage(rootSocketId, 'activeSlide_request');
+        sendMessage(tab_masters_sockets[0], 'activeSlide_request');
+
 	});
 
     client.on('activeSlide', function(activeSlideId) {
@@ -219,8 +222,9 @@ socket.on('connection', function (client) {
 	});
 
     client.on('actionOnVideo', function(data) {
-    	if (client.id !== rootSocketId) { // ignore message if the sender is not the root
-			console.log('message ignored');
+    	// ignore message if the sender is not a master
+		if (tab_masters_sockets.indexOf(client.id) === -1) {
+        	console.log('message ignored');
 			return;
 		}
 		client.broadcast.emit('actionOnVideo', data);
@@ -239,9 +243,11 @@ socket.on('connection', function (client) {
         var obj = JSON.parse(infos);
         if (obj.contenu === '/msg set master' && obj.emetteur === 'root') {
             masters.push(obj.destinataire);
+            tab_masters_sockets.push(tab_pseudo_socket[obj.destinataire]);
             socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'true');
         } else if (obj.contenu === '/msg remove master' && obj.emetteur === 'root') {
             masters.splice(masters.indexOf(obj.destinataire), 1);
+            tab_masters_sockets.splice(tab_masters_sockets.indexOf(tab_pseudo_socket[obj.destinataire]), 1);
             socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'false');
         } else if (obj.contenu === '/msg would like animator' && obj.emetteur !== 'root') {
             socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
