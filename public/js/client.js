@@ -19,7 +19,7 @@ $(document).ready(function () {
     "use strict";
     setMaster(sessionStorage.getItem('isMaster'));
     identifiant = sessionStorage.getItem('identifiant');
-    $("#menu-pseudo").append(identifiant);
+    $("#menu-pseudo").append(identifiant + "  <span class=\"caret\"></span>");
 
     /**
      * Open the socket with the token built by login process
@@ -412,9 +412,11 @@ function activeSlide () {
 function setMaster(isMaster) {
     "use strict";
     if (isMaster == 'true') {
+        $("#become-animator").hide();
         $("#menu-control").show();
         $("#bouton-selectPPT").show();
     } else {
+        $("#become-animator").show();
         $("#menu-control").hide();
         $("#bouton-selectPPT").hide();
     }

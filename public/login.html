@@ -14,12 +14,20 @@
 
 	<!-- We add style files -->
 	<link rel='stylesheet' href="css/style.css" type='text/css' media='screen' />
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="bootstrapcss/bootstrap-theme.min.css">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+
  </head>
 
   <body class="base">   
 	<div id="div_connection" >
         <div style="text-align: center;">
-            <a><strong id="title-connection">Bienvenue sur WebTeach !</strong></a><br /><br /><br />
+            <a><strong id="title-connection">Bienvenue sur WebTeach !</strong></a><br /><br />
             <input type="text" maxlength="12" name="identifiant" id="identifiant" title="13 caracteres max" onKeypress="return special_caract(event);" value="" placeholder="Pseudo" /><br />
             <input type="password" maxlength="12" name="password" id="password" title="13 caracteres max" onKeypress="return special_caract(event);" value="" placeholder="Mot de passe (optionnel)"/><br />	
             <div class="img-connect" id="identification"></div><br />

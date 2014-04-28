@@ -23,8 +23,7 @@
 
 	<!-- Menu for slides management -->
     <div id="chgt_slide">
-        <div id="titre1"> <img src="images/titre1.png" /> 
-        <button id="bouton-selectPPT" class="isHidden" type="button">Selectionner une presentation</button></div>
+        <div id="titre1"> <img src="images/titre1.png" /> </div>
         <div id="menu-control">
             <img src="images/fond-player.png" />
             <ul id="liste_player">
@@ -43,7 +42,20 @@
 				<li><span id="session_status" title="Session status">Recording</span>
 			</ul>
         </div>
-		<div id="menu-pseudo"></div>
+
+        <!-- Single button -->
+        <div class="btn-group" id="dropdown-menu">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="menu-pseudo">
+
+          </button>
+          <ul class="dropdown-menu" role="menu" id="dropdown-menu-list">
+            <li id="bouton-selectPPT"><a href="#">Sélectionner une présentation</a></li>
+            <li id="become-animator"><a href="#">Devenir annnimateur</a></li>
+            <li class="divider"></li>
+            <li><a href="/login.html">Déconnexion</a></li>
+          </ul>
+        </div>
+
         <div id="boutton-user">
 			  <span id="clients"></span>
 			  <img id="panelUsers" src="images/titre3.png" />
@@ -53,7 +65,6 @@
     <div id="degrade"></div>
 	<!-- End of Menu for slides management -->	
 	
-    <button id="deconnexion"><img src="images/deconnexion.png" heigh="30" width="30" /></button>
       
 	<!-- Discussion panel for everyone -->
 	<div id="cadre-menu">

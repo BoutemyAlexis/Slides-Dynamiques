@@ -91,7 +91,7 @@ html {
 #bordure-menu {	
 	float: left;
 	background-image: url('../images/titre5.png');
-	width: 147px;
+	width: 172px;
 	margin: 0;
 	padding: 10px;
 	padding-top: 15px;
@@ -107,6 +107,7 @@ html {
 	border: 2px solid #999;
 	overflow: auto; 
 	white-space: pre-line;
+    width: 142px;
 }
 
 #input_text {
@@ -256,14 +257,7 @@ html {
 	left: 0;
 }
 
-#bouton-selectPPT {
-	margin-left: 5px;
-    margin-top: 5px;
-    position:absolute;
-    width:201px;
-    font: 13px Arial;
-    color: rgb(85, 85, 85);
-}
+
 
 #menu-control {
 	position: relative;
@@ -272,18 +266,12 @@ html {
 	padding-top: 6px;
 }
 
-#menu-pseudo {
-    position: absolute;
-    top: 10px;
-	right: 11%;
-	font: 16px Arial;
-	color: #555;
-}
+
 
 #boutton-user {
     position: absolute;
 	top: 0;
-	right: 0;
+	right: 110px;
 }
 
 #clients {
@@ -345,6 +333,7 @@ html {
 
 #title-connection {
     font-size: 16px;
+    color: #000000;
 }
 
 
@@ -357,9 +346,9 @@ html {
  position: fixed;
  right: 4px;
  top: 40px;
- width: 105px;
+ width: 155px;
  display: none;
- background-color: lightgray;
+ background-color: #ebebeb;
 }
 
 .users {
@@ -381,10 +370,21 @@ html {
 #panelUsers {
  cursor: pointer;
 }
-
-#notification_personalChat {
-    color: #FFA500;
-    font-size: 10px;
-    margin-left: 25px;
+#dropdown-menu {
     position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+#dropdown-menu-list {
+    left: -130px;
+    width: 230px;
+}
+
+#menu-pseudo {
+        width: 105px;
+}
+
+#identification {
+    margin-left: 25px;
 }
