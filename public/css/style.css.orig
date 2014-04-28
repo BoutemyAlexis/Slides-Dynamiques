@@ -348,7 +348,7 @@ html {
  top: 40px;
  width: 155px;
  display: none;
- background-color: #e8e8e8;
+ background-color: #ebebeb;
 }
 
 .users {
@@ -369,6 +369,15 @@ html {
 
 #panelUsers {
  cursor: pointer;
+}
+
+#notification_personalChat {
+    color: #FFA500;
+    font-size: 10px;
+    margin-left: 25px;
+    position: absolute;
+}
+
 }
 #dropdown-menu {
     position: absolute;

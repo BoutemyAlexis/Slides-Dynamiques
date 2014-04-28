@@ -73,7 +73,7 @@ $(document).ready(function () {
         var newMessage = jQuery.parseJSON(message);
        
         if (newMessage.clients) {
-            document.getElementById("cadre-menu-droite").innerHTML = "<p><strong>UTILISATEURS</strong></p>";
+            document.getElementById("cadre-menu-droite").innerHTML = "<p style=\"text-align:center;\"><strong>Utilisateurs :</strong></p>";
             for (var i=0; i < newMessage.users.length; i++) {
                 if(newMessage.users[i] != identifiant) {    
                     document.getElementById("cadre-menu-droite").innerHTML += "<p class='users' onclick='lancerChat(this);'>" + newMessage.users[i] + "</p>";
