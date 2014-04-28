@@ -19,7 +19,7 @@ $(document).ready(function () {
     "use strict";
     setMaster(sessionStorage.getItem('isMaster'));
     identifiant = sessionStorage.getItem('identifiant');
-    $("#menu-pseudo").append(identifiant + "  <span class=\"caret\"></span>");
+    $("#menu-pseudo").append(identifiant + "  <span style=\"color:#787777;\" class=\"caret\"></span>");
 
     /**
      * Open the socket with the token built by login process
@@ -81,7 +81,7 @@ $(document).ready(function () {
         var newMessage = jQuery.parseJSON(message);
        
         if (newMessage.clients) {
-            document.getElementById("cadre-menu-droite").innerHTML = "<p style=\"text-align:center;\"><strong>Utilisateurs :</strong></p>";
+            document.getElementById("cadre-menu-droite").innerHTML = "<p style=\"text-align:center; font-size: 16px;\"><strong>Utilisateurs :</strong></p>";
             for (var i=0; i < newMessage.users.length; i++) {
                 if(newMessage.users[i] != identifiant) {    
                     document.getElementById("cadre-menu-droite").innerHTML += "<p class='users' onclick='lancerChat(this);'>" + newMessage.users[i] + "</p>";

@@ -383,7 +383,11 @@ html {
 }
 
 #menu-pseudo {
-        width: 105px;
+    width: 105px;
+    height: 30px;
+    background-color: #ebebeb;
+    border-color: #ebebeb;
+    border-top-color : #FFFFFF;
 }
 
 #identification {
@@ -393,6 +397,7 @@ html {
 #notification_personalChat {
   color: #FFA500;
   font-size: 10px;
-  margin-left: 25px;
+  margin-left: 34px;
   position: absolute;
+  top: 42px;
 }
