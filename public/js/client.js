@@ -164,7 +164,10 @@ $(document).ready(function () {
          
         messages_history[obj.emetteur] = "<p class='destinataire'>" + obj.contenu + "</p>";
         
-        if(document.getElementById('cadre-menu-droite').style.display == 'none') {
+        if(document.getElementById('cadre-menu-droite').style.display == 'none' || 
+           document.getElementById('cadre-menu-droite').style.display == ''
+           ) {
+            
             document.getElementById('notification_personalChat').innerHTML = 'Nouveau message';
         }
         
@@ -299,7 +302,21 @@ $(document).ready(function () {
     });
 
     $("#panelUsers").click(function(){
+        
         affichePanelUsers();
+        var nbDestinatairesOrange = 0;
+        var tab_p = document.getElementsByClassName('users');
+        
+        for (var i=0; i < tab_p.length; i++) {      
+                if(tab_p[i].style.backgroundColor == "orange") {
+                    nbDestinatairesOrange++;
+                }
+        }
+        
+        if(nbDestinatairesOrange == 0) {
+            document.getElementById('notification_personalChat').innerHTML = '';
+        }
+        
     });
     
     iFrameLoaded("notre_frame",'');
