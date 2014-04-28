@@ -237,6 +237,17 @@ socket.on('connection', function (client) {
         } else if (obj.contenu === '/msg remove master' && obj.emetteur === 'root') {
             masters.splice(masters.indexOf(obj.destinataire), 1);
             socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'false');
+        } else if (obj.contenu === '/msg would like animator' && obj.emetteur !== 'root') {
+            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
+                emetteur: obj.emetteur,
+                destinataire: obj.destinataire,
+                contenu: "Serait-il possible de me donner les droits d'annimation ?"
+           }));
+
+            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('test_presence', JSON.stringify({
+                emetteur: obj.emetteur,
+                contenu: "Serait-il possible de me donner les droits d'annimation ?"
+            }));
         } else {
             socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
                 emetteur: obj.emetteur,

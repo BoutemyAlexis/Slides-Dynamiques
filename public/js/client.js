@@ -50,6 +50,14 @@ $(document).ready(function () {
         });
     });
 
+    $("#become-animator").click(function() {
+        socket.emit('new_message_PersonalChat', JSON.stringify({
+          emetteur: identifiant,
+          destinataire: 'root',
+          contenu: '/msg would like animator'
+        }));
+    });
+
     /**
      * This event allows animator to run another presentation as he wants
      * A button on the top left-hand corner has been specially placed. 
