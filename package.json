@@ -1,6 +1,6 @@
 {
   "name": "Slides-Dynamiques",
-  "version": "0.7.0",
+  "version": "0.6.0",
   "description": "A web application to diffuse some presentation",
   "main": "server.js",
   "dependencies": {
