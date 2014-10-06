@@ -318,6 +318,11 @@ socket.on('connection', function (client) {
                 "users": users,
                 "masters": masters
             }));
+			
+			if (nbUsers == 0) {
+				console.log("No more users connected: server shutting down.");
+				server.close();
+			}
         }
 	});
 });
