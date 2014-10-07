@@ -20,6 +20,7 @@ var socketio_jwt = require('socketio-jwt'),
 
 // Attributs
 var nbUsers = 0,
+    isDev,
     slide_currently,
     my_timer,
     TempoPPT,
@@ -33,6 +34,23 @@ var nbUsers = 0,
     users = [],             // contains all connected clients
     masters = [],           // contains the master who has all controls on presentation
     tab_pseudo_socket = []; // contains all pseudo and their socket id (used to contact specific user when necessary)
+
+try {
+    // If the flag file DEV exists, we're in development mode
+    var f = fs.openSync("DEV", 'r');
+    isDev = true;
+    console.log("DEVELOPMENT MODE");
+    fs.closeSync(f);
+} catch(e) {   
+    // If the file doesn't exist, we're in production mode
+    if (e.message.indexOf("ENOENT") > -1) {
+        isDev = false;
+        console.log("PRODUCTION MODE");
+    }
+    else {
+        console.error(e);
+    }
+}
 
 
 // Config for Express, set static folder and add middleware
@@ -319,7 +337,7 @@ socket.on('connection', function (client) {
                 "masters": masters
             }));
 			
-			if (nbUsers == 0) {
+			if (isDev && nbUsers == 0) {
 				console.log("No more users connected: server shutting down.");
 				server.close();
 			}
