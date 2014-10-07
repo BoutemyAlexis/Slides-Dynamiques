@@ -7,7 +7,9 @@ socket = window.socket;
 socket.on('notification_PersonalChat', function(infos) {
     var obj = JSON.parse(infos);
     if (obj.destinataire === mon_identifiant && obj.emetteur === destinataire) {
-        document.getElementById("messageChat").innerHTML += "<p class='destinataire'>" /* + obj.emetteur + ":" */ + obj.contenu + "</p>";   
+        var divChat = document.getElementById("messageChat");
+        divChat.innerHTML += "<p class='msg-bubble destinataire'>" /* + obj.emetteur + ":" */ + obj.contenu + "</p>"; 
+        divChat.scrollTop = divChat.scrollHeight;  
     }
 });
     
@@ -18,7 +20,9 @@ function ajouterMessageChat(messageInput,event) {
    var texte = messageInput.value;
 
    if (event.keyCode == 13) {
-     document.getElementById("messageChat").innerHTML += "<p class='emetteur'>" /*  + mon_identifiant +  ":" */  + texte + "</p>";
+     var divChat = document.getElementById("messageChat");
+     divChat.innerHTML += "<p class='msg-bubble emetteur'>" /*  + mon_identifiant +  ":" */  + texte + "</p>";
+     divChat.scrollTop = divChat.scrollHeight;
      document.getElementById("zone_texte_Chat").value = "";
                               
      socket.emit('new_message_PersonalChat', JSON.stringify({
@@ -31,7 +35,7 @@ function ajouterMessageChat(messageInput,event) {
       
 // function that load some informations from parent frame like client's pseudo, client's recipient and history
 function chargerDonnees(){
-    document.getElementById("pseudo").innerHTML = /*window.mon_identifiant + " --> " + */ window.destinataire;
+    document.getElementById("pseudo").innerHTML = /*window.mon_identifiant + " --> " + */ "Chat privé avec "+window.destinataire;
     document.getElementById("messageChat").innerHTML = window.historique;
 }
         

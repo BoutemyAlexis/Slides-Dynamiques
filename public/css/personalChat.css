@@ -1,22 +1,33 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 #pseudo {
    color: #A52A2A;
    font-size: 24px;
-   margin-left: 150px;
+   text-align: center;
 }
 
-  .emetteur {
-    border: 1px #008000;
-    border-radius: 8px;
-    width: 218px;
-    box-shadow: 5px 5px 5px green;
-  }
+.msg-emis {
+    font-weight: bold;
+}
+
+.msg-bubble {
+  border-radius: 8px;
+  width: 50%;
+  padding: 5px 10px;
+  word-wrap: break-word;
+  margin: 5px 0;
+}
 
 .destinataire {
-    border: 2px none #FF0000;
-    border-radius: 8px;
-    box-shadow: 5px 5px 5px #FF0000;
-    text-align: right;
-    width: 355px;
+  background-color: #c7c7cc;
+}
+
+.emetteur {
+  background-color: #0bd318;
+  color: white;
+  float: right;
 }
 
 .users {
@@ -40,16 +51,14 @@
 
 #messageChat {
     background-color: #ECECEC;
-    border: 4px solid #000000;
-    height: 250px;
     margin-left: 5px;
     margin-top: 12px;
-    overflow: scroll;
-    width: 380px;
+    overflow: auto;
+    padding: 0 10px;
+    height: 290px;
 }
 
 #zone_texte_Chat {
     margin-left: 5px;
     width: 384px;
 }
-        

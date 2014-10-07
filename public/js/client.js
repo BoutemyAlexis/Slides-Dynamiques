@@ -81,7 +81,7 @@ $(document).ready(function () {
         var newMessage = jQuery.parseJSON(message);
        
         if (newMessage.clients) {
-            document.getElementById("cadre-menu-droite").innerHTML = "<p style=\"text-align:center; font-size: 16px;\"><strong>Utilisateurs :</strong></p>";
+            document.getElementById("cadre-menu-droite").innerHTML = "<h2>Utilisateurs :</h2>";
             for (var i=0; i < newMessage.users.length; i++) {
                 if(newMessage.users[i] != identifiant) {    
                     document.getElementById("cadre-menu-droite").innerHTML += "<p class='users' onclick='lancerChat(this);'>" + newMessage.users[i] + "</p>";
@@ -176,7 +176,7 @@ $(document).ready(function () {
     socket.on('test_presence', function(infos) {
         var obj = JSON.parse(infos);
          
-        messages_history[obj.emetteur] = "<p class='destinataire'>" + obj.contenu + "</p>";
+        messages_history[obj.emetteur] = "<p class='msg-bubble destinataire'>" + obj.contenu + "</p>";
         
         if(document.getElementById('cadre-menu-droite').style.display == 'none' || 
            document.getElementById('cadre-menu-droite').style.display == ''

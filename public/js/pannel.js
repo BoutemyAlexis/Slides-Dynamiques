@@ -4,7 +4,7 @@
 
       if (event.keyCode === 13) {
           if (texte !== "") {
-              $("#message ul").append("<li style='font-weight:bold;'>" + identifiant + " : " + texte + "</li>");	
+              $("#message ul").append("<li class='msg-emis'>" + identifiant + " : " + texte + "</li>");	
               $("#message").scrollTop(100000);
               $("#input_text").val('');
 
