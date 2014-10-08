@@ -112,6 +112,17 @@ app.get('/PersonalChat.html', function (req, res, next) {
     res.sendfile('./public/views/PersonalChat.html');
 });
 
+// TODO : test if auth
+app.get('/control.html', function (req, res, next) {
+    res.sendfile('./public/views/control.html');
+});
+
+// TODO : test if auth
+app.get('/qrcodeWindow.html', function (req, res, next) {
+    res.sendfile('./public/views/qrcodeWindow.html');
+});
+
+
 // Events for uploading new presentations
 app.post('/public/ppt', function(req, res) {
 	console.log("new post");
@@ -234,6 +245,35 @@ socket.on('connection', function (client) {
         socket.sockets.socket(newClientSocketId).emit('activeSlide', activeSlideId);
     });
 	
+    //Modif Alexis
+    client.on('next', function() {
+        currentSlideId += 1;
+        client.broadcast.emit('activeSlide',currentSlideId);
+    });
+
+    client.on('prev', function() {
+        currentSlideId -= 1;
+        client.broadcast.emit('activeSlide',currentSlideId);
+    });
+
+    client.on('first', function() {
+        currentSlideId = 0;
+        client.broadcast.emit('activeSlide',currentSlideId);
+    });
+
+    //TODO 
+    client.on('last', function() {
+        currentSlideId = 0;
+        client.broadcast.emit('activeSlide',currentSlideId--);
+    });
+
+    client.on('detectHasClick', function(bool){
+        socket.emit('hasClick',true);
+    });
+
+    //Fin modif
+
+
 	client.on('videoStates', function(data) {
 		console.log('videoStates server: ' + data);
         socket.sockets.socket(newClientSocketId).emit('videoStates', data);

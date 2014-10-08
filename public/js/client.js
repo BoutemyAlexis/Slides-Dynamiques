@@ -5,7 +5,7 @@
 var master = false,
     identifiant,
     password,
-    socket = io.connect(getURLConnectionForHTTPS(), { secure: true }),
+    socket = io.connect(),//(getURLConnectionForHTTPS(), { secure: true }),
     slideControlContainer,
     containers,
     currentSlide = 0,
@@ -65,6 +65,16 @@ $(document).ready(function () {
     $("#bouton-selectPPT").click(function () {
         setPresentationsList();
         var w = window.open('upload.html', 'popUpWindow', 'height=200, width=400, left=10, top=10, resizable=no, scrollbars=yes, toolbar=no, menubar=no, location=no, directories=no, status=yes');
+        w.focus();
+    });
+
+    /**
+     * 
+     *
+     */
+    $("#remote-control").click(function () {
+        //var w = window.open('control.html', 'popUpWindow', 'height=325, width=325, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=no, directories=no, status=yes');
+        var w = window.open('qrcodeWindow.html', 'popUpWindow', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
         w.focus();
     });
 
@@ -228,7 +238,8 @@ $(document).ready(function () {
      * Functions that are presents below allow to retrieve events on master computer and then sends informations to slaves
      * computer.
      */
-    
+
+
     //  Going to the next slide
     $("#next1").click(function () {
         if (typeof slideControlContainer === 'undefined') {
@@ -431,10 +442,12 @@ function setMaster(isMaster) {
         $("#become-animator").hide();
         $("#menu-control").show();
         $("#bouton-selectPPT").show();
+        $("#remote-control").show();
     } else {
         $("#become-animator").show();
         $("#menu-control").hide();
         $("#bouton-selectPPT").hide();
+        $("#remote-control").hide();
     }
     master = isMaster;
     sessionStorage.setItem('isMaster', master);
