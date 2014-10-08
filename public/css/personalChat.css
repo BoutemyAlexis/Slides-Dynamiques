@@ -18,10 +18,12 @@ body {
   padding: 5px 10px;
   word-wrap: break-word;
   margin: 5px 0;
+  clear: both;
 }
 
 .destinataire {
   background-color: #c7c7cc;
+  float: left;
 }
 
 .emetteur {

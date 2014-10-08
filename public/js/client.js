@@ -84,7 +84,7 @@ $(document).ready(function () {
             document.getElementById("cadre-menu-droite").innerHTML = "<h2>Utilisateurs :</h2>";
             for (var i=0; i < newMessage.users.length; i++) {
                 if(newMessage.users[i] != identifiant) {    
-                    document.getElementById("cadre-menu-droite").innerHTML += "<p class='users' onclick='lancerChat(this);'>" + newMessage.users[i] + "</p>";
+                    document.getElementById("cadre-menu-droite").innerHTML += "<p class='users col-md-12' onclick='lancerChat(this);'>" + newMessage.users[i] + "</p>";
                 }
             } 
         }
@@ -195,7 +195,8 @@ $(document).ready(function () {
         var tab_p = document.getElementsByClassName('users');
         for (var i=0; i < tab_p.length; i++) {
             if (tab_p[i].innerHTML === obj.emetteur) {
-                tab_p[i].style.backgroundColor = "orange";
+                tab_p[i].classList.remove("no-new-message");
+                tab_p[i].classList.add("new-message");
             }
         }
     });
@@ -322,7 +323,7 @@ $(document).ready(function () {
         var tab_p = document.getElementsByClassName('users');
         
         for (var i=0; i < tab_p.length; i++) {      
-                if(tab_p[i].style.backgroundColor == "orange") {
+                if(tab_p[i].classList.contains("new-message")) {
                     nbDestinatairesOrange++;
                 }
         }
@@ -360,8 +361,9 @@ function lancerChat(pseudo) {
 
     var tab_p = document.getElementsByClassName('users');
     for (var i=0; i < tab_p.length; i++) {
-        if (tab_p[i].innerHTML == myWindow.destinataire && tab_p[i].style.backgroundColor == "orange") {
-            tab_p[i].style.backgroundColor = "white";
+        if (tab_p[i].innerHTML == myWindow.destinataire && tab_p[i].classList.contains("new-message")) {
+            tab_p[i].classList.remove("new-message");
+            tab_p[i].classList.add("no-new-message");
             myWindow.historique = messages_history[myWindow.destinataire];
         }
     }

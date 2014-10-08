@@ -346,7 +346,6 @@ html {
  position: fixed;
  right: 4px;
  top: 40px;
- width: 155px;
  display: none;
  background-color: #e8e8e8;
  overflow: auto;
@@ -360,7 +359,6 @@ h2 {
 .users {
     font-weight: bold;
     font-size: 15px;
-    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -408,4 +406,12 @@ h2 {
   margin-left: 34px;
   position: absolute;
   top: 42px;
+}
+
+.new-message {
+  color: orange;
+}
+
+.no-new-message {
+  content: grey;
 }
