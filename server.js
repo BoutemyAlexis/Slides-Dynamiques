@@ -17,7 +17,6 @@ var socketio_jwt = require('socketio-jwt'),
     socket = require('socket.io').listen(server),
     express = require('express');
 
-
 // Attributs
 var nbUsers = 0,
     isDev,
@@ -122,6 +121,11 @@ app.get('/qrcodeWindow.html', function (req, res, next) {
     res.sendfile('./public/views/qrcodeWindow.html');
 });
 
+// TODO : test if auth
+app.get('/canvas.html', function (req, res, next) {
+    res.sendfile('./public/views/canvas.html');
+});
+
 
 // Events for uploading new presentations
 app.post('/public/ppt', function(req, res) {
@@ -203,6 +207,7 @@ socket.on('connection', function (client) {
 			"users": users,
 			"messageSender": user.identifiant
 		}));
+		
 	});
 
 	// Slides management and messages management
@@ -238,6 +243,12 @@ socket.on('connection', function (client) {
         console.log('server received activeSlide_request');
         sendMessage(tab_masters_sockets[0], 'activeSlide_request');
 
+	});
+	
+	client.on('activeWhiteScreen',function() {
+	        console.log('server received activeSlide');
+			client.broadcast.emit('activeWhiteScreen');
+			
 	});
 
     client.on('activeSlide', function(activeSlideId) {
@@ -382,6 +393,12 @@ socket.on('connection', function (client) {
 				server.close();
 			}
         }
+	});
+	
+	client.on('mousemove', function (data) {
+		// This line sends the event (broadcasts it)
+		// to everyone except the originating client.
+			client.broadcast.emit('moving', data);
 	});
 });
 
