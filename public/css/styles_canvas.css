@@ -16,7 +16,8 @@
 
 html{
 	background-color:white;
-		
+	/*background:url('../images/morpion.gif');*/
+
 	/* This will hide the extra canvas if the screen is small */
 	overflow:hidden;
 }
@@ -43,6 +44,21 @@ section, footer, header{
 /*-------------------------
 	Main Area
 --------------------------*/
+
+#admin{
+
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+#icon-help, #icon-refresh{
+	height:42px;
+	width:42px;
+}
+#deco{
+
+	color:red;
+}
 
 hgroup{
 	position: fixed;

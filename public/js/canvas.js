@@ -1,6 +1,10 @@
 $(function(){
 	var isMaster = sessionStorage.getItem('isMaster');
 
+	
+	if(isMaster == "false"){
+		$("#admin").hide();
+	}
 	// This demo depends on the canvas element
 	if(!('getContext' in document.createElement('canvas'))){
 		alert('Sorry, it looks like your browser does not support canvas!');
@@ -22,6 +26,32 @@ $(function(){
 	var cursors = {};
 	var socket = io.connect();
 	
+	//test si c'est un aniateur
+	if(isMaster== "true"){
+		$(window).on("unload", function(event) {
+			socket.emit('exit');
+		});
+		
+		
+		
+		$("#icon-refresh").click(function(){
+			if(confirm("confirmer ?")){
+			window.location.reload();
+				socket.emit('clear-canvas');
+			}
+		});
+		
+	}
+	socket.on('clear-canvas',function(){
+		window.location.reload();
+
+	});
+	if(isMaster== "false"){
+		socket.on("exit",function(){
+			$("<h1 id='deco'>Déconnexion de l'animateur</h1>").insertBefore("canvas");
+
+		});
+	}
 	socket.on('moving', function (data) {
 		
 		if(! (data.id in clients)){
@@ -114,5 +144,10 @@ $(function(){
 		ctx.lineTo(tox, toy);
 		ctx.stroke();
 	}
+	
+	$("#icon-help ").click(function(){
+		$("#instructions").show()
+	});
+	
 	
 });

@@ -228,6 +228,15 @@ socket.on('connection', function (client) {
 		client.broadcast.emit("updateSlide",currentPresentation, activeSlideIndex);
 	});
 
+	//modif White board
+	client.on('exit',function(){
+		client.broadcast.emit('exit');
+	});
+	
+	client.on('clear-canvas',function(){
+		client.broadcast.emit('clear-canvas');
+	
+	});
 	client.on('SlideChanged', function (activeSlideId) {
 		currentSlideId = activeSlideId;
 		client.broadcast.emit('activeSlide',currentSlideId);
