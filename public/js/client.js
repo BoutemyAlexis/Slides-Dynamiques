@@ -83,16 +83,21 @@ $(document).ready(function () {
      * A button on the top left-hand corner has been specially placed. 
      */
 	$("#white-screen").click(function () {
-        var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
-        w_white.focus();
-         socket.emit('activeWhiteScreen');
-        
-    });
-	socket.on('activeWhiteScreen',function(){
+		var isMaster = sessionStorage.getItem('isMaster');
 		
 			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
 			w_white.focus();
-		
+		if(isMaster == "true"){
+         socket.emit('activeWhiteScreen');
+		}
+        
+    });
+	socket.on('activeWhiteScreen',function(){
+		var isMaster = sessionStorage.getItem('isMaster');
+		if(isMaster != "true"){
+			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			w_white.focus();
+		}
 	});
     /**
      * Management of received messages and DOM insertion, modification, deletion
@@ -464,7 +469,7 @@ function setMaster(isMaster) {
         $("#menu-control").hide();
         $("#bouton-selectPPT").hide();
         $("#remote-control").hide();
-		$("#white-screen").hide();
+		$("#white-screen").show();
     }
     master = isMaster;
     sessionStorage.setItem('isMaster', master);

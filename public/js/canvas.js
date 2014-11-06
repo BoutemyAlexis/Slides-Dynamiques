@@ -5,6 +5,7 @@ $(function(){
 	if(isMaster == "false"){
 		$("#admin").hide();
 	}
+	
 	// This demo depends on the canvas element
 	if(!('getContext' in document.createElement('canvas'))){
 		alert('Sorry, it looks like your browser does not support canvas!');
@@ -46,11 +47,32 @@ $(function(){
 		window.location.reload();
 
 	});
+	socket.on("demande_canvas",function(){
+		socket.emit("canvas_master",{
+		width : canvas[0].width,
+		height : canvas[0].height,
+		source : canvas[0].toDataURL()
+		});
+	});
 	if(isMaster== "false"){
 		socket.on("exit",function(){
 			$("<h1 id='deco'>Déconnexion de l'animateur</h1>").insertBefore("canvas");
 
 		});
+		$(window).on("load",function(event){
+			socket.emit("demande_canvas");
+		});
+		socket.on("canvas_master",function(data){
+			//creation balise img OK
+			var img=document.createElement("img");
+			img.width=data.width;
+			img.height=data.height;
+			img.src=data.source;
+			 img.onload = function(){
+				ctx.drawImage(img,10,10);			
+			}
+			
+		})
 	}
 	socket.on('moving', function (data) {
 		

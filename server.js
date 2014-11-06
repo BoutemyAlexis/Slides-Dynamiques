@@ -259,7 +259,14 @@ socket.on('connection', function (client) {
 			client.broadcast.emit('activeWhiteScreen');
 			
 	});
-
+	
+	
+	client.on("demande_canvas",function(){
+		client.broadcast.emit("demande_canvas");
+	});
+	client.on("canvas_master",function(data){
+		client.broadcast.emit("canvas_master",data);
+	});
     client.on('activeSlide', function(activeSlideId) {
         console.log('server received activeSlide: ' + activeSlideId);
         socket.sockets.socket(newClientSocketId).emit('activeSlide', activeSlideId);
