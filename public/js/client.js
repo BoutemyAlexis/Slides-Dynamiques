@@ -74,7 +74,7 @@ $(document).ready(function () {
      */
     $("#remote-control").click(function () {
         //var w = window.open('control.html', 'popUpWindow', 'height=325, width=325, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=no, directories=no, status=yes');
-        var w_remote = window.open('qrcodeWindow.html', 'popUpWindow', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+        var w_remote = window.open('qrcodeWindow.html', 'remote', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
         w_remote.focus();
     });
 	
@@ -85,7 +85,7 @@ $(document).ready(function () {
 	$("#white-screen").click(function () {
 		var isMaster = sessionStorage.getItem('isMaster');
 		
-			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			var w_white = window.open('canvas.html', 'white', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
 			w_white.focus();
 		if(isMaster == "true"){
          socket.emit('activeWhiteScreen');
@@ -95,7 +95,7 @@ $(document).ready(function () {
 	socket.on('activeWhiteScreen',function(){
 		var isMaster = sessionStorage.getItem('isMaster');
 		if(isMaster != "true"){
-			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			var w_white = window.open('canvas.html', 'white', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
 			w_white.focus();
 		}
 	});

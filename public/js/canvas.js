@@ -37,13 +37,15 @@ $(function(){
 		
 		$("#icon-refresh").click(function(){
 			if(confirm("confirmer ?")){
-			window.location.reload();
 				socket.emit('clear-canvas');
+				window.location.reload();
+
 			}
 		});
 		
 	}
 	socket.on('clear-canvas',function(){
+		console.log("test canvas");
 		window.location.reload();
 
 	});
