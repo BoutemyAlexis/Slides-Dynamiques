@@ -55,7 +55,12 @@ function updateGeneric(message) {
     $(document).trigger(e);*/
 } 
 
+//Library for the swipe
+var monSwiper = $("#swiper");
+var hammertime = new Hammer(monSwiper.get(0));
+
 var iosocket = io.connect();
+var hasClick = false;
 
 iosocket.on('connect', function () {
     console.log('connected');
@@ -77,39 +82,63 @@ iosocket.on('disconnect', function() {
     console.log('disconnected');
 });
 
+//Set the bool to toggle click button
+iosocket.on('setClick', function (data) {
+    hasClick = data;
+    toggleClick();
+});
+
+
 $(document).ready(function () {
 
     //  Going to the next slide
     $("#next1").click(function () {
         iosocket.emit('next');
+        console.log("hasClick : " + hasClick)
+        //iosocket.emit('hasClick');
+    });
+
+    hammertime.on('swiperight', function(ev) {
+        iosocket.emit('next');
+        console.log("hasClick : " + hasClick)
     });
     
     //  Going on the previous slide
     $("#prev1").click(function () {
         iosocket.emit('prev');
+        console.log("hasClick : " + hasClick)
+    });
+
+    hammertime.on('swipeleft', function(ev) {
+        iosocket.emit('prev');
+        console.log("hasClick : " + hasClick)
     });
 
     //  Going at the beginning of this presentation
     $("#first1").click(function () {
         iosocket.emit('first');
+        console.log("hasClick : " + hasClick)
     });
 
     //  Going at the end of this presentation
     $("#last1").click(function () {
-        iosocket.on('hasClick', function(hasClick){
-            alert(hasClick);
-        });
-        
-        $("#click").hide();
-        //iosocket.emit('last');
+        iosocket.emit('last');
+        console.log("hasClick : " + hasClick)
     });
 
-    if(iosocket.emit('hasClick')){
-        console.log(iosocket.emit('hasClick'));
-        $("#click").show();
-    } else {
-        console.log(iosocket.emit('hasClick'));
-        $("#click").hide();
-    }
+    //TODO
+    $("#click").click(function() {
+
+    });
+
+    toggleClick();
 
 });
+
+function toggleClick(){
+    if(hasClick){
+        $("#click").show();
+    } else {
+        $("#click").hide();
+    }
+}
