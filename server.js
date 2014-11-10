@@ -1,6 +1,6 @@
 // Include all necessary packages for HTTPS
 
-var socketio_jwt = require('socketio-jwt'),
+var fs = require('fs'),
     /*sslOptions = {
         key: fs.readFileSync('ssl_layer/server.key'),
         cert: fs.readFileSync('ssl_layer/server.crt'),
@@ -11,7 +11,6 @@ var socketio_jwt = require('socketio-jwt'),
     jwt = require('jsonwebtoken'),
     jwt_secret = 'knkninnfsf,;sdf,ozqefsdvsfdbsnoenerkls,d;:',
 
-    express = require('express'),
     //routes = require('./routes'),
     //user = require('./routes/user'),
     path = require('path'),
@@ -22,11 +21,21 @@ var socketio_jwt = require('socketio-jwt'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     errorHandler = require('errorhandler'),
+    express = require('express'),
     app = express(),
+    server = require('http').createServer(app)
     socket = require('socket.io').listen(server);
 
 // Attributs
 var nbUsers = 0,
+    sendFileOptions = {
+        root:  __dirname + '/public/views/'
+    },
+    sendFileHandler = function(err) {
+        if (err) {
+          console.log(err);
+        }
+    },
     slide_currently,
     my_timer,
     TempoPPT,
@@ -56,6 +65,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// error handling middleware should be loaded after the loading the routes
+if ('development' == app.get('env')) {
+  app.use(errorHandler());
+}
+
+server.listen(app.get('port'), app.get('address'), function () {
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Listening at http://%s:%s', host, port);
+});
 
 // Routes for Express
 app.get('/', function (req, res, next) {
@@ -90,7 +111,7 @@ app.get('/index.html', function (req, res, next) {
     if (req.headers.token !== undefined) {
         // User is authenticated, let him in
     	console.log('request accepted');
-    	res.sendfile('./public/views/index.html');
+    	res.sendFile('index.html', sendFileOptions, sendFileHandler);
     } else {
         // Otherwise we redirect him to login form
     	console.log('not authenticated, request rejected');
@@ -100,27 +121,27 @@ app.get('/index.html', function (req, res, next) {
 
 // TODO : test if auth
 app.get('/upload.html', function (req, res, next) {
-    res.sendfile('./public/views/upload.html');
+    res.sendFile('upload.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/PersonalChat.html', function (req, res, next) {
-    res.sendfile('./public/views/PersonalChat.html');
+    res.sendFile('PersonalChat.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/control.html', function (req, res, next) {
-    res.sendfile('./public/views/control.html');
+    res.sendFile('control.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/qrcodeWindow.html', function (req, res, next) {
-    res.sendfile('./public/views/qrcodeWindow.html');
+    res.sendFile('qrcodeWindow.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/canvas.html', function (req, res, next) {
-    res.sendfile('./public/views/canvas.html');
+    res.sendFile('canvas.html', sendFileOptions, sendFileHandler);
 });
 
 
@@ -159,18 +180,6 @@ app.post('/public/ppt', function(req, res) {
 
 	form.parse(req); 
 	return;
-});
-
-// error handling middleware should be loaded after the loading the routes
-if ('development' == app.get('env')) {
-  app.use(errorHandler());
-}
-
-var server = app.listen(app.get('port'), app.get('address'), function () {
-    var host = server.address().address;
-    var port = server.address().port;
-
-    console.log('Listening at http://%s:%s', host, port);
 });
 
 // Client's connection
