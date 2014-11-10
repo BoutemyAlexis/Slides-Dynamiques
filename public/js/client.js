@@ -74,10 +74,31 @@ $(document).ready(function () {
      */
     $("#remote-control").click(function () {
         //var w = window.open('control.html', 'popUpWindow', 'height=325, width=325, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=no, directories=no, status=yes');
-        var w = window.open('qrcodeWindow.html', 'popUpWindow', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
-        w.focus();
+        var w_remote = window.open('qrcodeWindow.html', 'popUpWindow', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+        w_remote.focus();
     });
-
+	
+	 /**
+     * This event allows animator to run white screen
+     * A button on the top left-hand corner has been specially placed. 
+     */
+	$("#white-screen").click(function () {
+		var isMaster = sessionStorage.getItem('isMaster');
+		
+			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			w_white.focus();
+		if(isMaster == "true"){
+         socket.emit('activeWhiteScreen');
+		}
+        
+    });
+	socket.on('activeWhiteScreen',function(){
+		var isMaster = sessionStorage.getItem('isMaster');
+		if(isMaster != "true"){
+			var w_white = window.open('canvas.html', 'popUpWindow', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			w_white.focus();
+		}
+	});
     /**
      * Management of received messages and DOM insertion, modification, deletion
      *    --> if '.client' parameter : client's number and connected pannel users
@@ -238,7 +259,6 @@ $(document).ready(function () {
      * Functions that are presents below allow to retrieve events on master computer and then sends informations to slaves
      * computer.
      */
-
 
     //  Going to the next slide
     $("#next1").click(function () {
@@ -443,11 +463,13 @@ function setMaster(isMaster) {
         $("#menu-control").show();
         $("#bouton-selectPPT").show();
         $("#remote-control").show();
+		$("#white-screen").show();
     } else {
         $("#become-animator").show();
         $("#menu-control").hide();
         $("#bouton-selectPPT").hide();
         $("#remote-control").hide();
+		$("#white-screen").show();
     }
     master = isMaster;
     sessionStorage.setItem('isMaster', master);
