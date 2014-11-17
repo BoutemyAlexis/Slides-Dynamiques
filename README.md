@@ -7,7 +7,7 @@ Ce projet est la suite de ce qui a été fait par Aurelien GEANT et Julian DEMAR
 
 Aujourd'hui, les animations sont fonctionnelles et le visionnage des slides se fait sans connexion à internet. Une authentification est désormais nécessaire pour accéder au websocket. Il est ausi possible d'enregistrer une session et d'accorder à certain client les droits d'animation.
     
-La vesion actuel est la 0.6.0, n'hésitez pas à consulter son [changelog](https://github.com/OresteVisari/Slides-Dynamiques/wiki/Changelogs).
+La vesion actuel est la 0.6.0, n'hésitez pas à consulter son [changelog](https://github.com/AlexPernot/Slides-Dynamiques/wiki/Changelogs).
 
     
 HOW TO
@@ -42,4 +42,4 @@ Voici les fonctionnalités offertes par notre projet :
 INFORMATIONS SUPPLÉMENTAIRES
 -----------------------------
 
-Pour toutes informations supplémentaires, veuillez consulter notre [wiki](https://github.com/OresteVisari/Slides-Dynamiques/wiki).
+Pour toutes informations supplémentaires, veuillez consulter notre [wiki](https://github.com/AlexPernot/Slides-Dynamiques/wiki).
