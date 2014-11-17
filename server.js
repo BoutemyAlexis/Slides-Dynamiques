@@ -1,25 +1,41 @@
 // Include all necessary packages for HTTPS
 
-var socketio_jwt = require('socketio-jwt'),
-    fs = require('fs'),
-    sslOptions = {
+var fs = require('fs'),
+    /*sslOptions = {
         key: fs.readFileSync('ssl_layer/server.key'),
         cert: fs.readFileSync('ssl_layer/server.crt'),
         ca: fs.readFileSync('ssl_layer/ca.crt'),
         requestCert: true
-    },
+    },*/
     formidable = require('formidable'),
     jwt = require('jsonwebtoken'),
     jwt_secret = 'knkninnfsf,;sdf,ozqefsdvsfdbsnoenerkls,d;:',
-    app = require('express')(),
-    http = require('http').createServer(app),
-    server = require('https').createServer(sslOptions, app),
-    socket = require('socket.io').listen(server),
-    express = require('express');
+
+    //routes = require('./routes'),
+    //user = require('./routes/user'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    methodOverride = require('method-override'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'),
+    multer = require('multer'),
+    errorHandler = require('errorhandler'),
+    express = require('express'),
+    app = express(),
+    server = require('http').createServer(app)
+    socket = require('socket.io').listen(server);
 
 // Attributs
 var nbUsers = 0,
-    isDev,
+    sendFileOptions = {
+        root:  __dirname + '/public/views/'
+    },
+    sendFileHandler = function(err) {
+        if (err) {
+          console.log(err);
+        }
+    },
     slide_currently,
     my_timer,
     TempoPPT,
@@ -34,30 +50,32 @@ var nbUsers = 0,
     masters = [],           // contains the master who has all controls on presentation
     tab_pseudo_socket = []; // contains all pseudo and their socket id (used to contact specific user when necessary)
 
-try {
-    // If the flag file DEV exists, we're in development mode
-    var f = fs.openSync("DEV", 'r');
-    isDev = true;
-    console.log("DEVELOPMENT MODE");
-    fs.closeSync(f);
-} catch(e) {   
-    // If the file doesn't exist, we're in production mode
-    if (e.message.indexOf("ENOENT") > -1) {
-        isDev = false;
-        console.log("PRODUCTION MODE");
-    }
-    else {
-        console.error(e);
-    }
+// Config for Express, set static folder and add middleware
+app.set('port', 8333);
+app.set('address', '127.0.0.1');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(methodOverride());
+app.use(session({ resave: true,
+                  saveUninitialized: true,
+                  secret: 'qmdfkjzeaot' }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// error handling middleware should be loaded after the loading the routes
+if ('development' == app.get('env')) {
+  app.use(errorHandler());
 }
 
+server.listen(app.get('port'), app.get('address'), function () {
+    var host = server.address().address;
+    var port = server.address().port;
 
-// Config for Express, set static folder and add middleware
-app.configure(function () {
-    app.use(express.static(__dirname + '/public'));
-    app.use(express.json());
-    app.use(express.urlencoded());
-    app.use(app.router);
+    console.log('Listening at http://%s:%s', host, port);
 });
 
 // Routes for Express
@@ -93,7 +111,7 @@ app.get('/index.html', function (req, res, next) {
     if (req.headers.token !== undefined) {
         // User is authenticated, let him in
     	console.log('request accepted');
-    	res.sendfile('./public/views/index.html');
+    	res.sendFile('index.html', sendFileOptions, sendFileHandler);
     } else {
         // Otherwise we redirect him to login form
     	console.log('not authenticated, request rejected');
@@ -103,27 +121,27 @@ app.get('/index.html', function (req, res, next) {
 
 // TODO : test if auth
 app.get('/upload.html', function (req, res, next) {
-    res.sendfile('./public/views/upload.html');
+    res.sendFile('upload.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/PersonalChat.html', function (req, res, next) {
-    res.sendfile('./public/views/PersonalChat.html');
+    res.sendFile('PersonalChat.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/control.html', function (req, res, next) {
-    res.sendfile('./public/views/control.html');
+    res.sendFile('control.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/qrcodeWindow.html', function (req, res, next) {
-    res.sendfile('./public/views/qrcodeWindow.html');
+    res.sendFile('qrcodeWindow.html', sendFileOptions, sendFileHandler);
 });
 
 // TODO : test if auth
 app.get('/canvas.html', function (req, res, next) {
-    res.sendfile('./public/views/canvas.html');
+    res.sendFile('canvas.html', sendFileOptions, sendFileHandler);
 });
 
 
@@ -162,10 +180,6 @@ app.post('/public/ppt', function(req, res) {
 
 	form.parse(req); 
 	return;
-});
-
-server.listen(8333,function () {
-  console.log('listening on https://127.0.0.1:8333');
 });
 
 // Client's connection
@@ -404,7 +418,7 @@ socket.on('connection', function (client) {
                 "masters": masters
             }));
 			
-			if (isDev && nbUsers == 0) {
+			if ('development' == app.get('env') && nbUsers == 0) {
 				console.log("No more users connected: server shutting down.");
 				server.close();
 			}
