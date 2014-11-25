@@ -1,0 +1,1126 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Présentation du projet E1</title>
+<style type="text/css">
+
+/* Page */
+
+	
+
+body { background: #FFFFFF  ; font-family: "Helvetica Neue"}
+
+#slideshow { font-size: 1.5em }
+
+h1 { text-align: center; font-size: 150%; font-family: "Helvetica Neue",sans-serif; color: #963232 }
+h2 { text-align: center; font-size: 110%; font-weight: bold; font-family: "Helvetica Neue",sans-serif; color: #963232 }
+h3 { font-size: 100%; font-weight: bold; font-family: "Helvetica Neue",serif; margin-bottom: 0.5em }
+h5 { text-align: center; font-size: 90%; font-weight: bold; font-family: "Helvetica Neue",serif; margin-bottom: 0.5em; color: #963232 }
+h6 { text-align: center; font-size: 70%; font-weight: bold; font-family: "Helvetica Neue",serif; margin-bottom: 0.5em; color: #963232 }
+.auteur { text-align: center }
+.date { text-align: left }
+.sommaire { page-break-after: always; background: #F5F5FF; margin: 0.5em; padding: 0.5em; border: gray outset }
+.cover { page-break-after: always; background: #F5F5FF; margin: 0.5em; padding: 0.5em; border: gray outset }
+.conclusion { page-break-after: always; background: #F5F5FF; margin: 0.5em; padding: 0.5em; border: gray outset }
+.section { page-break-after: always; background: #FFFFEB; margin: 2em 0.5em; padding: 0.5em; border: gray outset }
+
+
+
+
+	
+		
+		
+			.slide { page-break-after: always; background: #EDF7F2; margin: 2em 0.5em; padding: 0.5em; border: gray outset }
+		
+	
+		
+	
+/* Fin page */
+
+/* Page de titre */
+
+.pagetitre {
+
+	
+	
+	
+color: black ;
+ background : #EDF7F2 ; 
+}
+
+
+/* Fin Page de titre */
+
+
+/* Environnements d'image et de video */
+
+	
+
+.titreimage { text-align: center; font-weight: bold; background-color: #E0E0FF ;  ; color: black}
+.envimage { text-align: center; border: gray outset; padding: 0; margin: 1em; background: #EBFFEB }
+.legende { font-family: sans-serif; margin-top: 1em ; color: black}
+
+
+/* Fin environnements */
+
+	
+
+pre.code_xml { color: black } ;
+pre { background: #EDF7F2; padding-left: 2em; padding-bottom: 0.5em }
+tt { color: black ; font-family: "Helvetica Neue", sans-serif}
+li { margin-bottom: 0.5em; }
+dt { font-weight: bold; }
+dd { margin-bottom: 0.5em; }
+.elsommaire { font-size: 110%; color: black ; text-decoration: none; font-weight: bold }
+.elsommaire:hover { font-size: 110%; color: #663399; text-decoration: none; font-weight: bold }
+.elsommaire2 { font-size: 110%; color: black ; text-decoration: none}
+.elsommaire2:hover { font-size: 110%; color: #663399; text-decoration: none }
+
+
+/* Tableaux */
+
+table.table_titre {
+height: 80%;
+margin-top: 10 %;
+margin-bottom: 10 %;
+width: 80%;
+margin-left: 10%;
+margin-right: 10%;
+}
+
+/* Entetes */
+
+	
+
+th {
+background: #FFF0E0 ;
+color: black ;
+
+}
+
+/* Corps des tableaux */
+
+	
+	
+.tableau1 {
+background: #FFFAE0 ;
+color: black ;
+ 
+}
+.tableau2 {
+background: #FFFAE0 ;
+color: black ;
+ 
+}
+
+td.tiers { width: 33% }
+td.vingt { width: 20% }
+table.bas { position: absolute; bottom: 2% ; left:0 }
+
+/* Fin tableaux */
+
+	
+
+.commentaire {
+margin: 1em;
+color: #196419 ;
+}
+
+
+.equation { vertical-align : middle }
+
+
+	
+	
+	
+	ul { margin-top: 0.5em ; background : #EDF7F2; color : black}
+	p { text-indent: 1em; text-align: justify; margin-top: 0.5em ; background : #EDF7F2; color : black}
+	.spanli { background : #EDF7F2; color : black}
+	
+	p#navigation_par {text-indent: 1em; text-align: justify; margin-top: 0.5em ; background : none }
+	p#text_size_par {text-indent: 1em; text-align: justify; margin-top: 0.5em ; background : none }
+	
+	
+	
+	
+	tt.slidenumber { color : black; background : #EDF7F2 }
+	
+	
+	
+		
+		
+		
+
+
+/* Titres */
+
+td.soixante { width: 60% ; background :  }
+
+.slide_title  , .titrepartie , .titresommaire {
+
+	
+
+
+color : red ;
+
+
+}
+
+/* Fin Titres */
+
+
+
+#slide3 ul li {
+list-style-type:none;
+}
+
+
+
+#slideshow div.slide {
+  position: absolute;
+  left: 10%;
+  top: 3%;
+  width:80%;
+  height:80%;  
+}
+#slideshow div.print {
+  position: relative !important;
+}
+
+#slideshow div.image {
+align:center;
+}
+
+#slideshow div.moitie {
+  float:left;
+  width:50%;
+}
+
+#slideshow div.tiers {
+  float:left;
+  width:33%;
+}
+#slideshow div.quart {
+  float:left;
+  width:25%;
+}
+
+
+
+#navigation_par.print {
+  display: none;
+  opacity: 0;
+}
+
+#text_size_par.print {
+  display: none;
+  opacity: 0;
+}
+
+/* navigation menu */
+#slideshow .menu {
+  position: absolute;
+  /*bottom: 0;*/
+  /*right: 2em;*/
+  /*font-size: 0.75em;*/
+  bottom: 0%;
+  right: 9%;
+	margin: 0;
+  border-radius         : 0px;
+  -o-border-radius      : 0px;
+  -moz-border-radius    : 0px;
+  -webkit-border-radius : 0px;
+  box-shadow         : none;
+  -o-box-shadow      : none;
+  -moz-box-shadow    : none;
+  -webkit-box-shadow : none;
+  z-index: 2;
+}
+
+/* Boutons session */
+
+#navigation_par #session_rec {
+
+	display:none
+
+}
+#navigation_par #session_export {
+
+	display:none
+
+}
+#navigation_par #session_import {
+
+	display:none
+
+}
+
+
+/* no transition for the menu! */
+#slideshow .menu {
+  opacity: 1 ;
+  visibility: visible ;
+}
+#slideshow .menu button {
+  opacity: 1;
+  transition         : none;
+  -o-transition      : none;
+  -moz-transition    : none;
+  -webkit-transition : none;
+}
+#slideshow .menu button[smil=idle] {
+  opacity: 0.5;
+  transform         : none;
+  -o-transform      : none;
+  -moz-transform    : none;
+  -webkit-transform : none;
+}
+
+
+/* text sizing menu */
+#slideshow .menuts {
+  position: absolute;
+  /*bottom: 0;*/
+  /*right: 2em;*/
+  /*font-size: 0.75em;*/
+  bottom: 0%;
+  left: 9%;
+	margin: 0;
+  border-radius         : 0px;
+  -o-border-radius      : 0px;
+  -moz-border-radius    : 0px;
+  -webkit-border-radius : 0px;
+  box-shadow         : none;
+  -o-box-shadow      : none;
+  -moz-box-shadow    : none;
+  -webkit-box-shadow : none;
+  z-index: 2;
+}
+/* no transition for the menu! */
+#slideshow .menuts {
+  opacity: 1 ;
+  visibility: visible ;
+}
+#slideshow .menuts button {
+  opacity: 1;
+  transition         : none;
+  -o-transition      : none;
+  -moz-transition    : none;
+  -webkit-transition : none;
+}
+#slideshow .menuts button[smil=idle] {
+  opacity: 0.5;
+  transform         : none;
+  -o-transform      : none;
+  -moz-transform    : none;
+  -webkit-transform : none;
+}
+
+/* Code en colonnes */
+
+div.code_cols {
+
+   column-gap: 1em;
+   -o-column-gap: 1em;
+   -moz-column-gap: 1em;
+   -webkit-column-gap: 1em;
+   column-rule:1px solid;
+   -o-column-rule:1px solid;
+   -moz-column-rule:1px solid;
+   -webkit-column-rule:1px solid;
+   color: #963232;
+   white-space:pre-wrap ;
+   word-wrap:break-word;
+   text-align: justify;
+}
+
+#slideshow div[smil="active"] {
+
+   display: block;
+}
+
+/*  Tous les slides et les boutons sont caches par defaut
+    pour verifier la presence du repertoire de configuration qui contient
+    le fichier CSS qui va les rendre visibles
+    
+    Un slide d'erreur est affiche */
+    
+#slideshow {
+
+	display: none;
+	
+}
+
+p.menu {
+
+	display: none;
+
+}
+
+p.menuts {
+
+	display: none;
+
+}
+
+div#erreur {
+
+	display: block;
+	
+	position: absolute;
+	left: 10%;
+	top: 3%;
+	width:80%;
+	height:80%;
+	background: #FFFFEB;
+	margin: 2em 0.5em;
+	padding: 0.5em;
+	border: gray outset
+}
+
+    </style>
+<meta charset="UTF-8"/>
+<link href="config_EAST/EAST_transitions.css" type="text/css" rel="stylesheet"> </link>
+<link href="config_EAST/EAST.css" type="text/css" rel="stylesheet"> </link>
+<link href="config_EAST/EAST_config.css" type="text/css" rel="stylesheet"> </link>
+<link href="config_EAST/EAST.smil" type="application/smil+xml" rel="timesheet"> </link>
+<script src="config_EAST/EAST.js" type="text/javascript"> </script>
+<script src="config_EAST/BrowserDetect.js" type="text/javascript"> </script>
+<script src="config_EAST/timesheets.js" type="text/javascript"> </script>
+<script src="config_EAST/timesheets-navigation.js" type="text/javascript"> </script>
+<script src="config_EAST/EAST_session.js" type="text/javascript"> </script>
+</head>
+<body style="font-size: 100%" class="crossfade">
+<div id="slideshow">
+<div id="cover" class="slide">
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td/>
+<td class="vingt logodroit" align="right">
+<tt/>
+</td>
+</tr>
+</table>
+<table class="table_titre">
+<tbody>
+<tr>
+<td>
+<h1 class="pagetitre">Présentation du projet E1</h1>
+</td>
+</tr>
+<tr>
+<td>
+<h2 class="pagetitre">Diffusion de slides EAST</h2>
+</td>
+</tr>
+<tr>
+<td>
+<h5 class="pagetitre">Alex PERNOT - Romain CHALUT - Alexis MANGANIELLO </h5>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td>
+<h6 class="pagetitre">
+<tt/>
+</h6>
+</td>
+</tr>
+</tfoot>
+</table>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber">24/11/2014</tt>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="sommaire" class="slide">
+<table width="100%">
+<tr>
+<td class="vingt" align="left"/>
+<td class="soixante" align="center">
+<h1 class="titresommaire"> Plan </h1>
+</td>
+<td class="vingt" align="right">
+<tt/>
+</td>
+</tr>
+</table>
+<ul class="accordion">
+<li class="elsommaire">
+<span>Présentation du projet<ul id="liste_sections">
+<li class="elsommaire2">
+<span>
+<a class="linkitem" href="#slide1">Présentation de EAST</a>
+</span>
+</li>
+<li class="elsommaire2">
+<span>
+<a class="linkitem" href="#slide2">Projet E1 : Diffusion de slides EAST</a>
+</span>
+</li>
+</ul>
+</span>
+</li>
+<li class="elsommaire">
+<span>Nouvelles fonctionnalités implémentées<ul id="liste_sections">
+<li class="elsommaire2">
+<span>
+<a class="linkitem" href="#slide3">Nouvelles fonctionnalités implémentées</a>
+</span>
+</li>
+</ul>
+</span>
+</li>
+<li class="elsommaire">
+<span>Implémentation future<ul id="liste_sections">
+<li class="elsommaire2">
+<span>
+<a class="linkitem" href="#slide4">Amélioration future</a>
+</span>
+</li>
+</ul>
+</span>
+</li>
+</ul>
+</div>
+<div id="partie1" class="slide">
+<table height="60%" width="100%">
+<tbody>
+<tr>
+<td>
+<h1 class="titrepartie">Présentation du projet</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber"/>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="slide1" class="slide">
+<script type="text/javascript">
+				
+				
+			var slide1 = document.getElementById("slide1");
+					
+			
+					
+			</script>
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td class="soixante" align="center">
+<h2 class="slide_title">Présentation de EAST</h2>
+</td>
+<td class="vingt logodroit" align="right"/>
+</tr>
+</table>
+
+<h3>EAsy Slide Tool</h3>
+<ul type="square">
+<li class="li_class" id="l1110">
+<span class="spanli" id="s1110">Logiciel de présentaton en Open Source (licence CC BY-NC-SA )</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1110 = document.getElementById("l1110");
+						var spans1110 = document.getElementById("s1110");
+						
+						lil1110.style.color = "black"; 
+						
+						spans1110.style.color = "black";</script>
+<li class="li_class" id="l1111">
+<span class="spanli" id="s1111">Fonctionnalités
+</span>
+<ul type="square">
+<li class="li_class" id="l1121">
+<span class="spanli" id="s1121">Création simple de présentation sous forme d'un fichier XML </span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1121 = document.getElementById("l1121");
+						var spans1121 = document.getElementById("s1121");
+						
+						lil1121.style.color = "black"; 
+						
+						spans1121.style.color = "black";</script>
+<li class="li_class" id="l1122">
+<span class="spanli" id="s1122">Tranformation du fichier XML en HTML par une feuille XSLT</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1122 = document.getElementById("l1122");
+						var spans1122 = document.getElementById("s1122");
+						
+						lil1122.style.color = "black"; 
+						
+						spans1122.style.color = "black";</script>
+<li class="li_class" id="l1123">
+<span class="spanli" id="s1123">Visualisation du rendu sous un navigateur WEB</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1123 = document.getElementById("l1123");
+						var spans1123 = document.getElementById("s1123");
+						
+						lil1123.style.color = "black"; 
+						
+						spans1123.style.color = "black";</script>
+</ul>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1111 = document.getElementById("l1111");
+						var spans1111 = document.getElementById("s1111");
+						
+						lil1111.style.color = "black"; 
+						
+						spans1111.style.color = "black";</script>
+</ul>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber">1/4</tt>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="slide2" class="slide">
+<script type="text/javascript">
+				
+				
+			var slide2 = document.getElementById("slide2");
+					
+			
+					
+			</script>
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td class="soixante" align="center">
+<h2 class="slide_title">Projet E1 : Diffusion de slides EAST</h2>
+</td>
+<td class="vingt logodroit" align="right"/>
+</tr>
+</table>
+
+<ul type="square">
+<li class="li_class" id="l1115">
+<span class="spanli" id="s1115">Ce projet est la continuité d'un projet développé les années précedentes</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1115 = document.getElementById("l1115");
+						var spans1115 = document.getElementById("s1115");
+						
+						lil1115.style.color = "black"; 
+						
+						spans1115.style.color = "black";</script>
+<li class="li_class" id="l1116">
+<span class="spanli" id="s1116">Il consiste à permettre la diffusion de présentations dynamiques EAST d'un poste
+maître à des postes esclaves</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1116 = document.getElementById("l1116");
+						var spans1116 = document.getElementById("s1116");
+						
+						lil1116.style.color = "black"; 
+						
+						spans1116.style.color = "black";</script>
+<li class="li_class" id="l1117">
+<span class="spanli" id="s1117">Il utilise pour cela un serveur Node.js et des Web sockets</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1117 = document.getElementById("l1117");
+						var spans1117 = document.getElementById("s1117");
+						
+						lil1117.style.color = "black"; 
+						
+						spans1117.style.color = "black";</script>
+<li class="li_class" id="l1118">
+<span class="spanli" id="s1118">Travail à réaliser à partir de la version 6 de l'an dernier :
+</span>
+<ul type="square">
+<li class="li_class" id="l1128">
+<span class="spanli" id="s1128">Mettre à jour les différents composants : serveur node et modules node</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1128 = document.getElementById("l1128");
+						var spans1128 = document.getElementById("s1128");
+						
+						lil1128.style.color = "black"; 
+						
+						spans1128.style.color = "black";</script>
+<li class="li_class" id="l1129">
+<span class="spanli" id="s1129">Corriger les bugs résiduels</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1129 = document.getElementById("l1129");
+						var spans1129 = document.getElementById("s1129");
+						
+						lil1129.style.color = "black"; 
+						
+						spans1129.style.color = "black";</script>
+<li class="li_class" id="l11210">
+<span class="spanli" id="s11210">Implémenter
+</span>
+<ul>
+<li class="li_class" id="l11310">
+<span class="spanli" id="s11310">La possibilité d'utiliser ce service au travers de proxys</span>
+</li>
+<script type="text/javascript">
+						
+						
+							var lil11310 = document.getElementById("l11310");
+							var spans11310 = document.getElementById("s11310");
+						
+							
+						
+						
+						</script>
+<li class="li_class" id="l11311">
+<span class="spanli" id="s11311">Une ardoise partagée en SVG</span>
+</li>
+<script type="text/javascript">
+						
+						
+							var lil11311 = document.getElementById("l11311");
+							var spans11311 = document.getElementById("s11311");
+						
+							
+						
+						
+						</script>
+<li class="li_class" id="l11312">
+<span class="spanli" id="s11312">Une télécommande sous smartphone</span>
+</li>
+<script type="text/javascript">
+						
+						
+							var lil11312 = document.getElementById("l11312");
+							var spans11312 = document.getElementById("s11312");
+						
+							
+						
+						
+						</script>
+</ul>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11210 = document.getElementById("l11210");
+						var spans11210 = document.getElementById("s11210");
+						
+						lil11210.style.color = "black"; 
+						
+						spans11210.style.color = "black";</script>
+<li class="li_class" id="l11214">
+<span class="spanli" id="s11214">Contacts : Didier Courtaud &amp; Philippe Benoit qui a participé au développement de
+la version 6 l'an dernier</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11214 = document.getElementById("l11214");
+						var spans11214 = document.getElementById("s11214");
+						
+						lil11214.style.color = "black"; 
+						
+						spans11214.style.color = "black";</script>
+</ul>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil1118 = document.getElementById("l1118");
+						var spans1118 = document.getElementById("s1118");
+						
+						lil1118.style.color = "black"; 
+						
+						spans1118.style.color = "black";</script>
+</ul>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber">2/4</tt>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="partie2" class="slide">
+<table height="60%" width="100%">
+<tbody>
+<tr>
+<td>
+<h1 class="titrepartie">Nouvelles fonctionnalités implémentées</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber"/>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="slide3" class="slide">
+<script type="text/javascript">
+				
+				
+			var slide3 = document.getElementById("slide3");
+					
+			
+					
+			</script>
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td class="soixante" align="center">
+<h2 class="slide_title">Nouvelles fonctionnalités implémentées</h2>
+</td>
+<td class="vingt logodroit" align="right"/>
+</tr>
+</table>
+
+<ul type="square">
+<li class="li_class" id="l11116">
+<span class="spanli" id="s11116">Télécommande sous smartphone</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11116 = document.getElementById("l11116");
+						var spans11116 = document.getElementById("s11116");
+						
+						lil11116.style.color = "black"; 
+						
+						
+							
+							lil11116.style.listStyleImage = "url(dadada)";
+						
+						spans11116.style.color = "black";</script>
+<li class="li_class" id="l11117">
+<span class="spanli" id="s11117">
+<img src="tele.png"/>
+</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11117 = document.getElementById("l11117");
+						var spans11117 = document.getElementById("s11117");
+						
+						lil11117.style.color = "black"; 
+						
+						
+							
+							lil11117.style.listStyleImage = "url(dadada)";
+						
+						spans11117.style.color = "black";</script>
+<li class="li_class" id="l11118">
+<span class="spanli" id="s11118">Tableau blanc</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11118 = document.getElementById("l11118");
+						var spans11118 = document.getElementById("s11118");
+						
+						lil11118.style.color = "black"; 
+						
+						
+							
+							lil11118.style.listStyleImage = "url(dadada)";
+						
+						spans11118.style.color = "black";</script>
+<li class="li_class" id="l11119">
+<span class="spanli" id="s11119">
+<img src="tb.png"/>
+</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11119 = document.getElementById("l11119");
+						var spans11119 = document.getElementById("s11119");
+						
+						lil11119.style.color = "black"; 
+						
+						
+							
+							lil11119.style.listStyleImage = "url(dadada)";
+						
+						spans11119.style.color = "black";</script>
+<li class="li_class" id="l11120">
+<span class="spanli" id="s11120">Mise à jour des modules node.js</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11120 = document.getElementById("l11120");
+						var spans11120 = document.getElementById("s11120");
+						
+						lil11120.style.color = "black"; 
+						
+						
+							
+							lil11120.style.listStyleImage = "url(dadada)";
+						
+						spans11120.style.color = "black";</script>
+</ul>
+
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber">3/4</tt>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="partie3" class="slide">
+<table height="60%" width="100%">
+<tbody>
+<tr>
+<td>
+<h1 class="titrepartie">Implémentation future</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber"/>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="slide4" class="slide">
+<script type="text/javascript">
+				
+				
+			var slide4 = document.getElementById("slide4");
+					
+			
+					
+			</script>
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td class="soixante" align="center">
+<h2 class="slide_title">Amélioration future</h2>
+</td>
+<td class="vingt logodroit" align="right"/>
+</tr>
+</table>
+
+<ul type="square">
+<li class="li_class" id="l11121">
+<span class="spanli" id="s11121">Gestion des proxys</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11121 = document.getElementById("l11121");
+						var spans11121 = document.getElementById("s11121");
+						
+						lil11121.style.color = "black"; 
+						
+						spans11121.style.color = "black";</script>
+<li class="li_class" id="l11122">
+<span class="spanli" id="s11122">Tableau blanc
+</span>
+<ul type="square">
+<li class="li_class" id="l11222">
+<span class="spanli" id="s11222">Insertion d'une image en fond</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11222 = document.getElementById("l11222");
+						var spans11222 = document.getElementById("s11222");
+						
+						lil11222.style.color = "black"; 
+						
+						spans11222.style.color = "black";</script>
+<li class="li_class" id="l11223">
+<span class="spanli" id="s11223">Insertion d'images en post-it</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11223 = document.getElementById("l11223");
+						var spans11223 = document.getElementById("s11223");
+						
+						lil11223.style.color = "black"; 
+						
+						spans11223.style.color = "black";</script>
+</ul>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11122 = document.getElementById("l11122");
+						var spans11122 = document.getElementById("s11122");
+						
+						lil11122.style.color = "black"; 
+						
+						spans11122.style.color = "black";</script>
+<li class="li_class" id="l11125">
+<span class="spanli" id="s11125">Fiabilisation de la solution</span>
+</li>
+<script type="text/javascript">
+						
+						
+						var lil11125 = document.getElementById("l11125");
+						var spans11125 = document.getElementById("s11125");
+						
+						lil11125.style.color = "black"; 
+						
+						spans11125.style.color = "black";</script>
+</ul>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber">4/4</tt>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<div id="conclusion" class="slide">
+<table width="100%">
+<tr>
+<td class="vingt logogauche" align="left"/>
+<td/>
+<td class="vingt logodroit" align="right">
+<tt/>
+</td>
+</tr>
+</table>
+<table class="table_titre">
+<tbody>
+<tr>
+<td>
+<h1>
+Merci de votre attention
+</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<table width="100%" class="bas">
+<tr>
+<td class="tiers" align="left">
+<tt class="piedgauche"/>
+</td>
+<td class="tiers" align="center">
+<tt class="slidenumber"/>
+</td>
+<td class="tiers" align="right">
+<tt class="pieddroit"/>
+</td>
+</tr>
+</table>
+</div>
+<p class="menu" id="navigation_par">
+<button title="first slide" id="first">  &lt;&lt; begin   </button>
+<button title="previous slide" id="prev"> &lt; prev </button>
+<button title="next slide" id="next">     next &gt; </button>
+<button title="last slide" id="last">         end &gt;&gt;  </button>
+<button onclick="location.href='#sommaire'" title="Plan" id="plan"> Plan </button>
+<button onclick="make_print();" title="Print" id="print"> Print </button>
+</p>
+<p class="menuts" id="text_size_par">
+<button onclick="increase_body_size();" title="A++" id="A++">  A++ </button>
+<button onclick="decrease_body_size();" title="A--" id="A--">  A-- </button>
+</p>
+</div>
+<div id="erreur">
+<h1> Problème </h1>
+<ul>
+<h3> Francais </h3>
+<li> La configuration de EAST n'a pas été trouvée et cela empêche le fonctionnement normal de EAST. </li>
+<li> Pour corriger ce probleme, placez le répertoire <em> config_EAST </em>  à côté de votre fichier HTML dans le même répertoire et rechargez votre fichier HTML</li>
+</ul>
+<ul>
+<h3> English </h3>
+<li> EAST configuration has not been found and EAST cannot work normally. </li>
+<li> To fix this problem, just put the directory <em> config_EAST </em>  beside your HTML file in the same directory and reload your HTML file</li>
+</ul>
+</div>
+</body>
+</html>

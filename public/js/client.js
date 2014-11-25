@@ -260,6 +260,27 @@ $(document).ready(function () {
      * computer.
      */
 
+	/*$("body, #notre_frame").on('keydown', function (e){
+	
+		if (master == 'true') {
+			// right arrow
+			if(e.keyCode == 39) {
+				console.log('#######################droite');
+				pauseAllVideos(); //Pause playing videos when changing slide
+				$($('#notre_frame').contents()).find("#next").click();
+				socket.emit('SlideChanged', slideControlContainer.currentIndex);
+			}
+			// left arrow
+			if(e.keyCode == 37){
+				console.log('#######################gauche');
+				pauseAllVideos();
+				$($('#notre_frame').contents()).find("#prev").click();
+				socket.emit('SlideChanged', slideControlContainer.currentIndex);
+			}
+		}
+	});*/
+	
+	 
     //  Going to the next slide
     $("#next1").click(function () {
         if (typeof slideControlContainer === 'undefined') {
@@ -510,8 +531,8 @@ function setIFrameEvents() {
         event.stopPropagation();
 
             if (event.target.nodeName !== "VIDEO") {
-                console.log("click on: " + getSelector($(this)));
-                socket.emit('click', getSelector($(this)));
+                //console.log("click on: " + getSelector($(this)));
+                //socket.emit('click', getSelector($(this)));
             }
         });
     }
