@@ -253,14 +253,16 @@ socket.on('connection', function (client) {
         sendMessage(tab_masters_sockets[0], 'activeSlide_request');
 
 	});
-	
+	//envoi serveur
 	client.on('activeWhiteScreen',function() {
 	        console.log('server received activeSlide');
 			client.broadcast.emit('activeWhiteScreen');
 			
 	});
 	
-	
+	client.on("active-link",function(href){
+		client.broadcast.emit("active-link",href);
+	})
 	client.on("demande_canvas",function(){
 		client.broadcast.emit("demande_canvas");
 	});

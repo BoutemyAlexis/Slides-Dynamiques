@@ -57,7 +57,8 @@ $(document).ready(function () {
           contenu: '/msg would like animator'
         }));
     });
-
+	
+		 
     /**
      * This event allows animator to run another presentation as he wants
      * A button on the top left-hand corner has been specially placed. 
@@ -98,6 +99,10 @@ $(document).ready(function () {
 			var w_white = window.open('canvas.html', 'white', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
 			w_white.focus();
 		}
+	});
+	//recup du socket
+	socket.on('active-link',function(href){
+		var w = window.open(href,"lien");
 	});
     /**
      * Management of received messages and DOM insertion, modification, deletion
@@ -486,11 +491,9 @@ function getPresentationsList() {
 
 function iFrameLoaded(id, src) {
     var deferred = $.Deferred(),
-        iframe = $("#"+id);
-        
+    iframe = $("#"+id);
     iframe.load(deferred.resolve);
     iframe = iframe.attr("src", src);
-    
     deferred.done(function() {
         setIFrameEvents();
     });
@@ -501,6 +504,15 @@ function iFrameLoaded(id, src) {
 function setIFrameEvents() {
     $($('#notre_frame').contents()).find('#navigation_par').hide();
 		
+	/*ouverture d'un lien*/
+	 iframe = $($("#notre_frame").contents());
+	 iframe.find("a").each(function(a){
+		
+		$(this).click(function(event){
+			var w = window.open(this.href,"lien");
+			socket.emit('active-link',this.href);
+		});
+	 });
     if ($.isFunction($($('#notre_frame').contents())[0].getTimeContainersByTagName)) {
         containers = $($('#notre_frame').contents())[0].getTimeContainersByTagName("*");
         slideControlContainer =  containers[containers.length-1];
@@ -512,8 +524,8 @@ function setIFrameEvents() {
         $($('#notre_frame').contents()).find('#slideshow div, a.linkitem, li.elsommaire, li.elsommaire2, span.spanli, #liste_sections').click( function(event) {
         event.stopPropagation();
             if (event.target.nodeName !== "VIDEO") {
-                //console.log("click on: " + getSelector($(this)));
-                //socket.emit('click', getSelector($(this)));
+                console.log("click on: " + getSelector($(this)));
+                socket.emit('click', getSelector($(this)));
             }
         });
 		
