@@ -509,8 +509,12 @@ function setIFrameEvents() {
 	 iframe.find("a").each(function(a){
 		
 		$(this).click(function(event){
+			
 			var w = window.open(this.href,"lien");
+			if (master == 'true') {
 			socket.emit('active-link',this.href);
+			}
+			return false;
 		});
 	 });
     if ($.isFunction($($('#notre_frame').contents())[0].getTimeContainersByTagName)) {
