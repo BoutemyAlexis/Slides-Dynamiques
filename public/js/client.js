@@ -13,7 +13,21 @@ var master = false,
     token,
     tab_windows_opened = [],    // This tab contains all pseudos of all opened windows
     messages_history = [],      // This tab contains history of all opened windows
-    presentationsList = [];     // This tab contains all presentation already upload on the server
+    presentationsList = [],     // This tab contains all presentation already upload on the server
+    entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
 
 $(document).ready(function () {
     "use strict";
@@ -126,7 +140,7 @@ $(document).ready(function () {
         }
 
         if (newMessage.messageContent) {
-          $("#message ul").append("<li style='font-weight:bold;'>" + newMessage.messageSender + " : " + newMessage.messageContent + "</li>");
+          $("#message ul").append("<li style='font-weight:bold;'>" + escapeHtml(newMessage.messageSender) + " : " + escapeHtml(newMessage.messageContent) + "</li>");
           $("#message").scrollTop(100000);
 
             // Panel notification (blinking red)
@@ -152,7 +166,7 @@ $(document).ready(function () {
             $('#clients').text(newMessage.clients-1);   // Display the number of other connected users
 
             if (newMessage.connexion) {
-                $("#message ul").append("<li><font color='green'>(" + newMessage.connexion + ") s'est connect&#233;</font> </li>");
+                $("#message ul").append("<li><font color='green'>(" + escapeHtml(newMessage.connexion) + ") s'est connect&#233;</font> </li>");
                 var timeLoad = 200;
 
                 setTimeout(function() {
@@ -162,11 +176,11 @@ $(document).ready(function () {
             }
             
             if (newMessage.messageSender) {
-                $("#message ul").append("<li><font color='green'>(" + newMessage.messageSender + ") s'est connect&#233;</font> </li>");
+                $("#message ul").append("<li><font color='green'>(" + escapeHtml(newMessage.messageSender) + ") s'est connect&#233;</font> </li>");
             }
             
             if (newMessage.deconnexion) {
-                $("#message ul").append("<li><font color='red'>(" + newMessage.deconnexion + ") s'est d&#233connect&#233;</font> </li>");
+                $("#message ul").append("<li><font color='red'>(" + escapeHtml(newMessage.deconnexion) + ") s'est d&#233connect&#233;</font> </li>");
             }
         }
     });
@@ -212,7 +226,7 @@ $(document).ready(function () {
     socket.on('test_presence', function(infos) {
         var obj = JSON.parse(infos);
          
-        messages_history[obj.emetteur] = "<p class='msg-bubble destinataire'>" + obj.contenu + "</p>";
+        messages_history[obj.emetteur] = "<p class='msg-bubble destinataire'>" + escapeHtml(obj.contenu) + "</p>";
         
         if(document.getElementById('cadre-menu-droite').style.display == 'none' || 
            document.getElementById('cadre-menu-droite').style.display == ''
@@ -389,9 +403,9 @@ function updateSlide(filePath, activeSlideIndex) {
  *   -> Check if the frame is opened after notification (then pseudo color is orange) or not and then do some actions to update
  */
 function lancerChat(pseudo) {
-    var myWindow = window.open("PersonalChat.html", pseudo.innerHTML, "width=430, height=400");
+    var myWindow = window.open("PersonalChat.html", escapeHtml(pseudo.innerHTML), "width=430, height=400");
     myWindow.identifiant = identifiant;
-    myWindow.destinataire = pseudo.innerHTML;
+    myWindow.destinataire = escapeHtml(pseudo.innerHTML);
     myWindow.socket = socket;
     myWindow.historique = '';
     

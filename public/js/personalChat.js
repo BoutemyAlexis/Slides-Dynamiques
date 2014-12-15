@@ -1,6 +1,14 @@
-    
-var destinataire = window.destinataire; 
-var mon_identifiant = window.identifiant;
+var destinataire = window.destinataire,
+    mon_identifiant = window.identifiant,
+    entityMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': '&quot;',
+      "'": '&#39;',
+      "/": '&#x2F;'
+    };
+
 socket = window.socket;
 
 // listener that notify personal chat. It retrieves informations like the recipient and message's content.
@@ -8,10 +16,16 @@ socket.on('notification_PersonalChat', function(infos) {
     var obj = JSON.parse(infos);
     if (obj.destinataire === mon_identifiant && obj.emetteur === destinataire) {
         var divChat = document.getElementById("messageChat");
-        divChat.innerHTML += "<p class='msg-bubble destinataire'>" /* + obj.emetteur + ":" */ + obj.contenu + "</p>"; 
+        divChat.innerHTML += "<p class='msg-bubble destinataire'>" /* + obj.emetteur + ":" */ + escapeHtml(obj.contenu) + "</p>"; 
         divChat.scrollTop = divChat.scrollHeight;  
     }
 });
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
     
 /* function that add messages on personal chat frames both on the client and then notify recipient 
  * Recipient receive messages from the server after control
@@ -21,7 +35,7 @@ function ajouterMessageChat(messageInput,event) {
 
    if (event.keyCode == 13) {
      var divChat = document.getElementById("messageChat");
-     divChat.innerHTML += "<p class='msg-bubble emetteur'>" /*  + mon_identifiant +  ":" */  + texte + "</p>";
+     divChat.innerHTML += "<p class='msg-bubble emetteur'>" /*  + mon_identifiant +  ":" */  + escapeHtml(texte) + "</p>";
      divChat.scrollTop = divChat.scrollHeight;
      document.getElementById("zone_texte_Chat").value = "";
                               
@@ -35,7 +49,7 @@ function ajouterMessageChat(messageInput,event) {
       
 // function that load some informations from parent frame like client's pseudo, client's recipient and history
 function chargerDonnees(){
-    document.getElementById("pseudo").innerHTML = /*window.mon_identifiant + " --> " + */ "Chat privé avec "+window.destinataire;
+    document.getElementById("pseudo").innerHTML = /*window.mon_identifiant + " --> " + */ "Chat privé avec "+escapeHtml(window.destinataire);
     document.getElementById("messageChat").innerHTML = window.historique;
 }
         
