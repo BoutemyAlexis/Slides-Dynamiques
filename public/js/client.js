@@ -107,13 +107,15 @@ $(document).ready(function () {
 		}
         
     });
-	socket.on('activeWhiteScreen',function(){
-		var isMaster = sessionStorage.getItem('isMaster');
-		if(isMaster != "true"){
-			var w_white = window.open('canvas.html', 'white', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
-			w_white.focus();
-		}
-	});
+
+    socket.on('activeWhiteScreen',function(){
+        var isMaster = sessionStorage.getItem('isMaster');
+        if(isMaster != "true"){
+            var w_white = window.open('canvas.html', 'white', 'height=500, width=500, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+            w_white.focus();
+        }
+    });
+	
 	//recup du socket
 	socket.on('active-link',function(href){
 		var w = window.open(href,"lien");
@@ -387,6 +389,7 @@ $(document).ready(function () {
     });
     
     iFrameLoaded("notre_frame",'');
+
 });
 
 // Load a new presentation selected by the animator
@@ -540,10 +543,22 @@ function setIFrameEvents() {
     }
     if (master == 'true') {
         $($('#notre_frame').contents()).find('#slideshow div, a.linkitem, li.elsommaire, li.elsommaire2, span.spanli, #liste_sections').click( function(event) {
-        event.stopPropagation();
+            /*event.stopPropagation();
             if (event.target.nodeName !== "VIDEO") {
                 console.log("click on: " + getSelector($(this)));
                 socket.emit('click', getSelector($(this)));
+            }*/
+
+            //work clicking on "+" (plus) img to show list (li)
+            if (event.target.nodeName !== "VIDEO" && event.target.nodeName !== "LI" && event.target.className !== "plus") {
+                console.log("click on: " + getSelector($(this)));
+                socket.emit('click', getSelector($(this)));
+            } else if(event.target.nodeName == "LI") {
+                console.log("click on li : " + event.target.id);
+                socket.emit('click', "#" + event.target.id);
+            } else if (event.target.className == "plus"){
+                console.log('click on plus : ' + event.target.parentElement.id);
+                socket.emit('click', "#" + event.target.parentElement.id);
             }
         });
 		
