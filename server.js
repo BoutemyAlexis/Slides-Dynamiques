@@ -163,13 +163,14 @@ app.post('/public/ppt', function(req, res) {
 		var percent = (bytesReceived / bytesExpected * 100) | 0;
 		process.stdout.write('Uploading: ' + percent + '%\r');
 	})
-
+	
 	form.parse(req); 
 	return;
 });
 
-app.post('/public/images', function(req, res) {
+app.post('/add_image.html', function(req, res) {
 	console.log("new post");
+	var filename;
 	var form = new formidable.IncomingForm( { 
 		uploadDir: __dirname + '/public/images/temp',
 		keepExtensions: true
@@ -191,7 +192,9 @@ app.post('/public/images', function(req, res) {
 
 	.on('file', function(field, file) {
 		// On file received
+		filename=file.name;
 		console.log("new file: " + './images/temp/' + file.name);
+		
 		
 	})
 
@@ -199,7 +202,10 @@ app.post('/public/images', function(req, res) {
 		var percent = (bytesReceived / bytesExpected * 100) | 0;
 		process.stdout.write('Uploading: ' + percent + '%\r');
 	})
-	form.parse(req);
+	.on('end',function(){
+		res.redirect('add_image.html?'+filename);
+	})
+	 form.parse(req);
 	return;
 });
 

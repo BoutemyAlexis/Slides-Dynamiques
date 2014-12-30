@@ -33,7 +33,7 @@ $(function(){
 	
 	//if this master
 	if(isMaster== "true"){
-
+		
 		$(window).on("unload", function(event) {
 			socket.emit('exit');
 		});
@@ -49,9 +49,12 @@ $(function(){
 		
 		$("#icon-picture").click(function(){
 			var w_add = window.open('add_image.html', 'add', 'height=200, width=400, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
-			w_white.focus();
+			w_add.focus();
 		});
 		
+		$("#icon-color").click(function(){
+			$(".color").toggle();
+		});
 	}
 	 
 	
@@ -108,7 +111,7 @@ $(function(){
 			
 			// Draw a line on the canvas. clients[data.id] holds
 			// the previous position of this user's mouse pointer	
-			drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y);
+			drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y,data.color);
 		}
 		
 		// Saving the current client state
@@ -142,7 +145,8 @@ $(function(){
 				'x': e.pageX,
 				'y': e.pageY,
 				'drawing': drawing,
-				'id': id
+				'id': id,
+				'color' : '#'+$(".color").val()
 			});
 			lastEmit = $.now();
 		}
@@ -151,7 +155,7 @@ $(function(){
 		// not received in the socket.on('moving') event above
 		
 		if(drawing){
-			drawLine(prev.x, prev.y, e.pageX, e.pageY);
+			drawLine(prev.x, prev.y, e.pageX, e.pageY,"");
 			prev.x = e.pageX;
 			prev.y = e.pageY;
 		}
@@ -175,12 +179,18 @@ $(function(){
 		
 	},10000);
 
-	function drawLine(fromx, fromy, tox, toy){
+	
+	function drawLine(fromx, fromy, tox, toy,color){
 		ctx.moveTo(fromx, fromy);
 		ctx.lineTo(tox, toy);
+		if(color==""){
+			ctx.strokeStyle = "#"+$(".color").val();
+
+		}else{
+			ctx.strokeStyle = color;
+		}
 		ctx.stroke();
 	}
-	
 	$("#icon-help ").click(function(){
 		$("#instructions").show()
 	});

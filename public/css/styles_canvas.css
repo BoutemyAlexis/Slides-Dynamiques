@@ -39,7 +39,9 @@ a:hover{
 section, footer, header{
 	display: block;
 }
-
+.color{
+	z-index:10;
+}
 
 /*-------------------------
 	Main Area
