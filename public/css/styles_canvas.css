@@ -50,6 +50,8 @@ section, footer, header{
 	position:absolute;
 	top:5px;
 	left:5px;
+	background-color:white;
+
 }
 #icon-help, #icon-refresh, #icon-picture{
 	height:42px;
@@ -103,6 +105,4 @@ h3{
 	height:22px;
 	background:url('../images/pointer.png') no-repeat -4px 0;
 }
-
-
 

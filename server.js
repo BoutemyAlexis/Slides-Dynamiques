@@ -126,6 +126,10 @@ app.get('/canvas.html', function (req, res, next) {
     res.sendfile('./public/views/canvas.html');
 });
 
+// TODO : test if auth
+app.get('/add_image.html', function (req, res, next) {
+    res.sendfile('./public/views/add_image.html');
+});
 
 // Events for uploading new presentations
 app.post('/public/ppt', function(req, res) {
@@ -163,6 +167,44 @@ app.post('/public/ppt', function(req, res) {
 	form.parse(req); 
 	return;
 });
+
+app.post('/public/images', function(req, res) {
+	console.log("new post");
+	var form = new formidable.IncomingForm( { 
+		uploadDir: __dirname + '/public/images/temp',
+		keepExtensions: true
+	});
+
+	form
+	.on('aborted', function() {
+	})
+
+	.on('error', function(err) {
+		req.resume();
+		console.log('request resumed after error');
+	})
+	
+	.on ('fileBegin', function(name, file) {
+		// Rename the incoming file to the file's name
+		file.path = form.uploadDir + "/" + file.name;
+	})
+
+	.on('file', function(field, file) {
+		// On file received
+		console.log("new file: " + './images/temp/' + file.name);
+		
+	})
+
+	.on('progress', function(bytesReceived, bytesExpected) {
+		var percent = (bytesReceived / bytesExpected * 100) | 0;
+		process.stdout.write('Uploading: ' + percent + '%\r');
+	})
+	form.parse(req);
+	return;
+});
+
+// Events for uploading new background image
+
 
 server.listen(8333,function () {
   console.log('listening on https://127.0.0.1:8333');
@@ -229,6 +271,11 @@ socket.on('connection', function (client) {
 	});
 
 	//modif White board
+	client.on('image_canvas',function(file_path){
+		var fileName = file_path;
+		client.broadcast.emit("image_canvas",fileName);
+
+	});
 	client.on('exit',function(){
 		client.broadcast.emit('exit');
 	});
@@ -418,11 +465,10 @@ socket.on('connection', function (client) {
 		// to everyone except the originating client.
 			client.broadcast.emit('moving', data);
 	});
+	
+	
 });
 
-function alertClients(filePath, activeSlideIndex) {
-	socket.broadcast.emit('updateSlide', filePath, activeSlideIndex);
-}
 
 // send a specific message to a specific recipient using his single socket 
 function sendMessage(socketId, messageType) {

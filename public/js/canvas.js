@@ -1,7 +1,15 @@
+var socket = io.connect();
+var doc = $(document),
+		win = $(window),
+		canvas = $('#paper'),
+		ctx = canvas[0].getContext('2d'),
+		instructions = $('#instructions');
 $(function(){
 	var isMaster = sessionStorage.getItem('isMaster');
-
 	
+	$("#choicePicture").hide();
+
+
 	if(isMaster == "false"){
 		$("#admin").hide();
 	}
@@ -11,11 +19,7 @@ $(function(){
 		alert('Sorry, it looks like your browser does not support canvas!');
 		return false;
 	}
-	var doc = $(document),
-		win = $(window),
-		canvas = $('#paper'),
-		ctx = canvas[0].getContext('2d'),
-		instructions = $('#instructions');
+	
 		
 	// Generate an unique ID
 	var id = Math.round($.now()*Math.random());
@@ -25,16 +29,16 @@ $(function(){
 
 	var clients = {};
 	var cursors = {};
-	var socket = io.connect();
 	
-	//test si c'est un aniateur
+	
+	//if this master
 	if(isMaster== "true"){
+
 		$(window).on("unload", function(event) {
 			socket.emit('exit');
 		});
 		
-		
-		
+
 		$("#icon-refresh").click(function(){
 			if(confirm("confirmer ?")){
 				socket.emit('clear-canvas');
@@ -43,9 +47,18 @@ $(function(){
 			}
 		});
 		
+		$("#icon-picture").click(function(){
+			var w_add = window.open('add_image.html', 'add', 'height=200, width=400, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
+			w_white.focus();
+		});
+		
 	}
+	 
+	
+	socket.on("image_canvas",function(file_path){
+		drawimage(file_path)
+	});
 	socket.on('clear-canvas',function(){
-		console.log("test canvas");
 		window.location.reload();
 
 	});
@@ -71,11 +84,12 @@ $(function(){
 			img.height=data.height;
 			img.src=data.source;
 			 img.onload = function(){
-				ctx.drawImage(img,10,10);			
+				ctx.drawImage(img,0,0);			
 			}
 			
 		})
 	}
+	
 	socket.on('moving', function (data) {
 		
 		if(! (data.id in clients)){
@@ -137,9 +151,7 @@ $(function(){
 		// not received in the socket.on('moving') event above
 		
 		if(drawing){
-			
 			drawLine(prev.x, prev.y, e.pageX, e.pageY);
-			
 			prev.x = e.pageX;
 			prev.y = e.pageY;
 		}
@@ -174,4 +186,22 @@ $(function(){
 	});
 	
 	
+	function alertClients(filePath, activeSlideIndex) {
+		socket.broadcast.emit('updateSlide', filePath, activeSlideIndex);
+	}
+	
+
 });
+function alert_image(fileName){
+			socket.emit("image_canvas",fileName);
+}
+	
+function drawimage(fileName){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);	
+		var img=document.createElement("img");
+		img.src=fileName;
+
+		img.onload = function(){
+			ctx.drawImage(img,0,0,img.width,img.height,0,52,window.innerWidth,window.innerHeight);
+		}
+}

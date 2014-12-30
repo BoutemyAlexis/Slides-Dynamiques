@@ -600,7 +600,6 @@ function setIFrameEvents() {
 function affichePanelUsers() {
     $('#cadre-menu-droite').slideToggle("slow");       
 }
-
 // This function is used to retrieve url information in order to connect with a remote server using https
 function getURLConnectionForHTTPS() {
     var url = '' + window.location;
