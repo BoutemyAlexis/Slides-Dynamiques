@@ -83,12 +83,8 @@ $(document).ready(function () {
         w.focus();
     });
 
-    /**
-     * 
-     *
-     */
+	
     $("#remote-control").click(function () {
-        //var w = window.open('control.html', 'popUpWindow', 'height=325, width=325, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=no, directories=no, status=yes');
         var w_remote = window.open('qrcodeWindow.html', 'remote', 'height=230, width=230, left=10, top=10, resizable=no, scrollbars=no, toolbar=no, menubar=no, location=null, directories=no, status=yes');
         w_remote.focus();
     });
@@ -108,6 +104,7 @@ $(document).ready(function () {
         
     });
 
+	
     socket.on('activeWhiteScreen',function(){
         var isMaster = sessionStorage.getItem('isMaster');
         if(isMaster != "true"){

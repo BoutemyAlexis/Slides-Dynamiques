@@ -111,22 +111,18 @@ app.get('/PersonalChat.html', function (req, res, next) {
     res.sendfile('./public/views/PersonalChat.html');
 });
 
-// TODO : test if auth
 app.get('/control.html', function (req, res, next) {
     res.sendfile('./public/views/control.html');
 });
 
-// TODO : test if auth
 app.get('/qrcodeWindow.html', function (req, res, next) {
     res.sendfile('./public/views/qrcodeWindow.html');
 });
 
-// TODO : test if auth
 app.get('/canvas.html', function (req, res, next) {
     res.sendfile('./public/views/canvas.html');
 });
 
-// TODO : test if auth
 app.get('/add_image.html', function (req, res, next) {
     res.sendfile('./public/views/add_image.html');
 });
@@ -168,6 +164,7 @@ app.post('/public/ppt', function(req, res) {
 	return;
 });
 
+//event for open image in white board
 app.post('/add_image.html', function(req, res) {
 	console.log("new post");
 	var filename;
@@ -203,6 +200,7 @@ app.post('/add_image.html', function(req, res) {
 		process.stdout.write('Uploading: ' + percent + '%\r');
 	})
 	.on('end',function(){
+		//if end redirect to add_image.html
 		res.redirect('add_image.html?'+filename);
 	})
 	 form.parse(req);
@@ -210,8 +208,6 @@ app.post('/add_image.html', function(req, res) {
 });
 
 // Events for uploading new background image
-
-
 server.listen(8333,function () {
   console.log('listening on https://127.0.0.1:8333');
 });
@@ -306,7 +302,8 @@ socket.on('connection', function (client) {
         sendMessage(tab_masters_sockets[0], 'activeSlide_request');
 
 	});
-	//envoi serveur
+	
+	
 	client.on('activeWhiteScreen',function() {
 	        console.log('server received activeSlide');
 			client.broadcast.emit('activeWhiteScreen');
@@ -327,7 +324,7 @@ socket.on('connection', function (client) {
         socket.sockets.socket(newClientSocketId).emit('activeSlide', activeSlideId);
     });
 	
-    //Modif Alexis
+
     client.on('next', function() {
         currentSlideId += 1;
         client.broadcast.emit('activeSlide',currentSlideId);
@@ -343,7 +340,6 @@ socket.on('connection', function (client) {
         client.broadcast.emit('activeSlide',currentSlideId);
     });
 
-    //TODO 
     client.on('last', function() {
         currentSlideId = 0;
         client.broadcast.emit('activeSlide',currentSlideId--);
@@ -353,7 +349,7 @@ socket.on('connection', function (client) {
         socket.emit('hasClick',true);
     });
 
-    //Fin modif
+    
 
 
 	client.on('videoStates', function(data) {

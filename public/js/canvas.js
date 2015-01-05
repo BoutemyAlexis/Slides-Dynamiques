@@ -38,13 +38,16 @@ $(function(){
 			socket.emit('exit');
 		});
 		
-
 		$("#icon-refresh").click(function(){
 			if(confirm("confirmer ?")){
 				socket.emit('clear-canvas');
 				window.location.reload();
 
 			}
+		});
+		
+		$("#icon-help ").click(function(){
+			$("#instructions").show()
 		});
 		
 		$("#icon-picture").click(function(){
@@ -72,8 +75,10 @@ $(function(){
 		source : canvas[0].toDataURL()
 		});
 	});
+	//if not master
 	if(isMaster== "false"){
 		socket.on("exit",function(){
+			//display warning message in case of master deconnection
 			$("<h1 id='deco'>Déconnexion de l'animateur</h1>").insertBefore("canvas");
 
 		});
@@ -191,9 +196,7 @@ $(function(){
 		}
 		ctx.stroke();
 	}
-	$("#icon-help ").click(function(){
-		$("#instructions").show()
-	});
+	
 	
 	
 	function alertClients(filePath, activeSlideIndex) {
