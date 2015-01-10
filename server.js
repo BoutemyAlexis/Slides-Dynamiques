@@ -8,9 +8,11 @@ var socketio_jwt = require('socketio-jwt'),
         ca: fs.readFileSync('ssl_layer/ca.crt'),
         requestCert: true
     },
-    formidable = require('formidable'),
     jwt = require('jsonwebtoken'),
     jwt_secret = 'knkninnfsf,;sdf,ozqefsdvsfdbsnoenerkls,d;:',
+
+// File upload module
+    formidable = require('formidable'),
 
 // Express app creation
     express = require('express'),
