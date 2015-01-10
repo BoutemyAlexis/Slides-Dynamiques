@@ -11,13 +11,15 @@ var socketio_jwt = require('socketio-jwt'),
     formidable = require('formidable'),
     jwt = require('jsonwebtoken'),
     jwt_secret = 'knkninnfsf,;sdf,ozqefsdvsfdbsnoenerkls,d;:',
-    app = require('express')(),
+
+// Express app creation
+    express = require('express'),
+    app = express(),
     http = require('http').createServer(app),
     server = require('https').createServer(sslOptions, app),
-    socket = require('socket.io').listen(server),
-    express = require('express');
+    socket = require('socket.io').listen(server);
 
-// Attributs
+// Attributes
 var nbUsers = 0,
     isDev,
     slide_currently,
