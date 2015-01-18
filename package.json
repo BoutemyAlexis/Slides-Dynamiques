@@ -1,15 +1,15 @@
 {
   "name": "Slides-Dynamiques",
-  "version": "0.6.0",
+  "version": "0.8",
   "description": "A web application to diffuse some presentation",
   "main": "server.js",
   "dependencies": {
-    "express": "~3.4.8",
-    "formidable": "~1.0.14",
-    "jsonwebtoken": "~0.2.0",
-    "socket.io": "~0.9.16",
-    "socketio-jwt": "~2.0.2",
-    "https-server": "^0.1.1",
+    "express": "~4.11.0",
+    "formidable": "~1.0.16",
+    "jsonwebtoken": "~3.2.2",
+    "socket.io": "~1.2.1",
+    "socketio-jwt": "~2.3.5",
+    "https-server": "^0.1.2",
     "http": "0.0.0"
   },
   "devDependencies": {},
@@ -18,35 +18,48 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OresteVisari/Slides-Dynamiques"
+    "url": "https://github.com/AlexPernot/Slides-Dynamiques"
   },
   "keywords": [
     "diffusion",
     "slide",
+    "slideshow",
     "chat",
     "master",
     "slave",
     "connection",
     "deconnection"
   ],
-  "author": "liesse karim philippe",
+  "author": "Didier COURTAUD",
   "contributors": [
+    {
+      "name": "Philippe BENOIT",
+      "email": "philippe.benoitt@gmail.com"
+    },
+    {
+      "name": "Romain CHALUT",
+      "email": "romain.chalut@gmail.com"
+    },
+    {
+      "name": "Abdoul Karim CISSE",
+      "email": "cisse.abdoulkarim@gmail.com"
+    },  
+    {
+      "name": "Alexis MANGANIELLO",
+      "email": "manganiello.alexis@gmail.com"
+    },
     {
       "name": "Liesse NADJI",
       "email": "liesse.nadji@gmail.com"
     },
     {
-      "name": "Abdoul Karim CISSE",
-      "email": "cisse.abdoulkarim@gmail.com"
-    },
-    {
-      "name": "Philippe BENOIT",
-      "email": "philippe.benoitt@gmail.com"
+      "name": "Alex PERNOT",
+      "email": "alex_pernot@hotmail.com"
     }
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OresteVisari/Slides-Dynamiques/issues"
+    "url": "https://github.com/AlexPernot/Slides-Dynamiques/issues"
   },
-  "homepage": "https://github.com/OresteVisari/Slides-Dynamiques"
+  "homepage": "https://github.com/AlexPernot/Slides-Dynamiques"
 }
