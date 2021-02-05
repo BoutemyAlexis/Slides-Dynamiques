@@ -18,8 +18,9 @@ var socketio_jwt = require('socketio-jwt'),
     express = require('express'),
     app = express(),
     http = require('http').createServer(app),
-    server = require('https').createServer(sslOptions, app),
-    socket = require('socket.io').listen(server);
+	server = require('https').createServer(sslOptions, app),
+	socket = require('socket.io')(server);
+    //socket = require('socket.io').listen(server);
 
 // Attributes
 var nbUsers = 0,
@@ -47,7 +48,7 @@ try {
 } catch(e) {   
     // If the file doesn't exist, we're in production mode
     if (e.message.indexOf("ENOENT") > -1) {
-        isDev = false;
+		isDev = false;
         console.log("PRODUCTION MODE");
     }
     else {
@@ -57,12 +58,12 @@ try {
 
 
 // Config for Express, set static folder and add middleware
-app.configure(function () {
+//app.configure(function () {
     app.use(express.static(__dirname + '/public'));
     app.use(express.json());
     app.use(express.urlencoded());
-    app.use(app.router);
-});
+    //app.use(app.router);
+//});
 
 // Routes for Express
 app.get('/', function (req, res, next) {
