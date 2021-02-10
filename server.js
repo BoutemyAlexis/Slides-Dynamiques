@@ -19,8 +19,8 @@ var socketio_jwt = require('socketio-jwt'),
     app = express(),
     http = require('http').createServer(app),
 	server = require('https').createServer(sslOptions, app),
-	socket = require('socket.io')(server);
-    //socket = require('socket.io').listen(server);
+	socket = require('socket.io')(http);
+    //socket = require('socket.io').listen(server);//server utilise la version https indisponible sans le bon certificat.
 
 // Attributes
 var nbUsers = 0,
@@ -86,7 +86,7 @@ app.post('/login', function (req, res) {
         res.json({token: token, isMaster: true});
     } else if (user.identifiant !== undefined && user.identifiant.length > 0 && user.identifiant !== 'root'
                && user.password === 'comete' && users.indexOf(user.identifiant) === -1) {
-        var token = jwt.sign(user, jwt_secret, { expiresInMinutes: 60*5 });
+				var token = jwt.sign(user, jwt_secret, { expiresIn: 60*5 });
         res.json({token: token, isMaster: false});
     } else {
        console.log("client rejected");
@@ -213,9 +213,12 @@ app.post('/add_image.html', function(req, res) {
 });
 
 // Events for uploading new background image
-server.listen(8333,function () {
+http.listen(8333,function () {
+	console.log('listening on http://127.0.0.1:8333');
+  });
+/*server.listen(8333,function () {
   console.log('listening on https://127.0.0.1:8333');
-});
+});*/
 
 // Client's connection
 socket.on('connection', function (client) {
