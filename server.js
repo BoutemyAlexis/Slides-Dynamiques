@@ -82,7 +82,7 @@ app.post('/login', function (req, res) {
 
     console.log(user.identifiant + ' ' + user.password);
     if (user.identifiant === 'root' &&  user.password === 'lkp' && users.indexOf(user.identifiant) === -1) {
-        var token = jwt.sign(user, jwt_secret, { expiresInMinutes: 60*5 });
+        var token = jwt.sign(user, jwt_secret, { expiresIn: 60*5 });
         res.json({token: token, isMaster: true});
     } else if (user.identifiant !== undefined && user.identifiant.length > 0 && user.identifiant !== 'root'
                && user.password === 'comete' && users.indexOf(user.identifiant) === -1) {
@@ -98,7 +98,7 @@ app.get('/index.html', function (req, res, next) {
     if (req.headers.token !== undefined) {
         // User is authenticated, let him in
     	console.log('request accepted');
-    	res.sendfile('./public/views/index.html');
+    	res.sendFile('./public/views/index.html', {root: __dirname});
     } else {
         // Otherwise we redirect him to login form
     	console.log('not authenticated, request rejected');
@@ -108,28 +108,28 @@ app.get('/index.html', function (req, res, next) {
 
 // TODO : test if auth
 app.get('/upload.html', function (req, res, next) {
-    res.sendfile('./public/views/upload.html');
+    res.sendFile('./public/views/upload.html', {root: __dirname});
 });
 
 // TODO : test if auth
 app.get('/PersonalChat.html', function (req, res, next) {
-    res.sendfile('./public/views/PersonalChat.html');
+    res.sendFile('./public/views/PersonalChat.html', {root: __dirname});
 });
 
 app.get('/control.html', function (req, res, next) {
-    res.sendfile('./public/views/control.html');
+    res.sendFile('./public/views/control.html', {root: __dirname});
 });
 
 app.get('/qrcodeWindow.html', function (req, res, next) {
-    res.sendfile('./public/views/qrcodeWindow.html');
+    res.sendFile('./public/views/qrcodeWindow.html', {root: __dirname});
 });
 
 app.get('/canvas.html', function (req, res, next) {
-    res.sendfile('./public/views/canvas.html');
+    res.sendFile('./public/views/canvas.html', {root: __dirname});
 });
 
 app.get('/add_image.html', function (req, res, next) {
-    res.sendfile('./public/views/add_image.html');
+    res.sendFile('./public/views/add_image.html', {root: __dirname});
 });
 
 // Events for uploading new presentations
@@ -329,7 +329,7 @@ socket.on('connection', function (client) {
 	});
     client.on('activeSlide', function(activeSlideId) {
         console.log('server received activeSlide: ' + activeSlideId);
-        socket.sockets.socket(newClientSocketId).emit('activeSlide', activeSlideId);
+        socket.to(newClientSocketId).emit('activeSlide', activeSlideId);
     });
 	
 
@@ -362,7 +362,7 @@ socket.on('connection', function (client) {
 
 	client.on('videoStates', function(data) {
 		console.log('videoStates server: ' + data);
-        socket.sockets.socket(newClientSocketId).emit('videoStates', data);
+        socket.to(newClientSocketId).emit('videoStates', data);
 	});
 
     client.on('actionOnVideo', function(data) {
@@ -388,30 +388,30 @@ socket.on('connection', function (client) {
         if (obj.contenu === '/msg set master' && obj.emetteur === 'root') {
             masters.push(obj.destinataire);
             tab_masters_sockets.push(tab_pseudo_socket[obj.destinataire]);
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'true');
+            socket.to(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'true');
         } else if (obj.contenu === '/msg remove master' && obj.emetteur === 'root') {
             masters.splice(masters.indexOf(obj.destinataire), 1);
             tab_masters_sockets.splice(tab_masters_sockets.indexOf(tab_pseudo_socket[obj.destinataire]), 1);
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'false');
+            socket.to(tab_pseudo_socket[obj.destinataire]).emit('setMaster', 'false');
         } else if (obj.contenu === '/msg would like animator' && obj.emetteur !== 'root') {
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
+			socket.to(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
                 emetteur: obj.emetteur,
                 destinataire: obj.destinataire,
-                contenu: "Serait-il possible de me donner les droits d'annimation ?"
+                contenu: "Serait-il possible de me donner les droits d'animation ?"
            }));
 
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('test_presence', JSON.stringify({
+            socket.to(tab_pseudo_socket[obj.destinataire]).emit('test_presence', JSON.stringify({
                 emetteur: obj.emetteur,
-                contenu: "Serait-il possible de me donner les droits d'annimation ?"
+                contenu: "Serait-il possible de me donner les droits d'animation ?"
             }));
         } else {
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
+            socket.to(tab_pseudo_socket[obj.destinataire]).emit('notification_PersonalChat', JSON.stringify({
                 emetteur: obj.emetteur,
                 destinataire: obj.destinataire,
                 contenu: obj.contenu
            }));
 
-            socket.sockets.socket(tab_pseudo_socket[obj.destinataire]).emit('test_presence', JSON.stringify({
+            socket.to(tab_pseudo_socket[obj.destinataire]).emit('test_presence', JSON.stringify({
                 emetteur: obj.emetteur,
                 contenu: obj.contenu
             }));
@@ -422,7 +422,7 @@ socket.on('connection', function (client) {
     client.on('MAJ_tab_windows_opened', function(infos){
         var obj = JSON.parse(infos);
        
-        socket.sockets.socket(tab_pseudo_socket[obj.emetteur]).emit('MAJ_tab_windows_opened', JSON.stringify({
+        socket.to(tab_pseudo_socket[obj.emetteur]).emit('MAJ_tab_windows_opened', JSON.stringify({
            destinataire: obj.destinataire          
         }));
     });
@@ -452,7 +452,7 @@ socket.on('connection', function (client) {
                 masters.splice(masters.indexOf(user.identifiant), 1);
                 if (masters.length === 0 && users.length > 0) {
                     masters.push(users[0]);
-                    socket.sockets.socket(tab_pseudo_socket[users[0]]).emit('setMaster', 'true');
+                    socket.to(tab_pseudo_socket[users[0]]).emit('setMaster', 'true');
                 }
             }
 
@@ -482,12 +482,12 @@ socket.on('connection', function (client) {
 
 // send a specific message to a specific recipient using his single socket 
 function sendMessage(socketId, messageType) {
-	socket.sockets.socket(socketId).emit(messageType);
+	socket.to(socketId).emit(messageType);
 }
 
 // Send a message to a specific recipient using his single socket
 function sendData(socketId, data) {
-	socket.sockets.socket(socketId).send(data);
+	socket.to(socketId).send(data);
 }
 
 
