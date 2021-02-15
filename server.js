@@ -2,11 +2,13 @@
 
 var socketio_jwt = require('socketio-jwt'),
     fs = require('fs'),
-    sslOptions = {
-        key: fs.readFileSync('ssl_layer/server.key'),
-        cert: fs.readFileSync('ssl_layer/server.crt'),
-        ca: fs.readFileSync('ssl_layer/ca.crt'),
-        requestCert: true
+	sslOptions = {
+        key: fs.readFileSync('ssl_layer/key.pem'),
+        cert: fs.readFileSync('ssl_layer/cert.pem'),
+		passphrase: "slidedynamique",
+		//legacy
+        //ca: fs.readFileSync('ssl_layer/ca.crt'),
+        //requestCert: true
     },
     jwt = require('jsonwebtoken'),
     jwt_secret = 'knkninnfsf,;sdf,ozqefsdvsfdbsnoenerkls,d;:',
@@ -19,8 +21,7 @@ var socketio_jwt = require('socketio-jwt'),
     app = express(),
     http = require('http').createServer(app),
 	server = require('https').createServer(sslOptions, app),
-	socket = require('socket.io')(http);
-    //socket = require('socket.io').listen(server);//server utilise la version https indisponible sans le bon certificat.
+    socket = require('socket.io')(server);
 
 // Attributes
 var nbUsers = 0,
@@ -58,12 +59,11 @@ try {
 
 
 // Config for Express, set static folder and add middleware
-//app.configure(function () {
-    app.use(express.static(__dirname + '/public'));
-    app.use(express.json());
-    app.use(express.urlencoded());
-    //app.use(app.router);
-//});
+app.use(express.static(__dirname + '/public'));
+app.use(express.json());
+app.use(express.urlencoded());
+//legacy
+//app.use(app.router);
 
 // Routes for Express
 app.get('/', function (req, res, next) {
@@ -213,12 +213,9 @@ app.post('/add_image.html', function(req, res) {
 });
 
 // Events for uploading new background image
-http.listen(8333,function () {
-	console.log('listening on http://127.0.0.1:8333');
-  });
-/*server.listen(8333,function () {
-  console.log('listening on https://127.0.0.1:8333');
-});*/
+server.listen(8333,function () {
+  console.log('listening on https://192.168.1.14:8333');//Change the adress to the one you use
+});
 
 // Client's connection
 socket.on('connection', function (client) {
