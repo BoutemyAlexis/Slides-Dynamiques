@@ -24,6 +24,7 @@ Voir un :
 En cas de problèmes.
 
 Assurez-vous ensuite de modifier le certificat dans le dossier ssl_layer en générant le certificat avec openssl en indiquant l'adresse ip locale utilisée pour le serveur et en utilisant le mot de passe "slidedynamique". (Il s'agit des fichiers "cert.pm" et "key.pm")
+Il vous faudra aussi modifier l'adresse ip indiquée dans le code à la ligne 217 du fichier "server.js".
 Pour générer les certificat nous vous recommandons d'utiliser l'outil suivant: https://slproweb.com/products/Win32OpenSSL.html.
 Une fois l'outil ouvert lancez la commande suivante : 
 
